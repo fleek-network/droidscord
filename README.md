@@ -8,7 +8,8 @@ Help us reach the members of our communities quicker and to reduce the amount of
 
 ## 🧑🏾‍💻 Requirements
 
-- [Bun](https://bun.sh/)
+- Nodejs
+- Typescript
 - Discord API [Application ID and Key](https://discord.com/developers/applications/)
 
 ## Run dev server?
@@ -16,5 +17,9 @@ Help us reach the members of our communities quicker and to reduce the amount of
 Start the development server by running the bun script "start":
 
 ```sh
-bun run start
+npm run dev
 ```
+
+## Production
+
+Use systemd service, or [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)

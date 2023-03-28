@@ -1,11 +1,19 @@
 {
   "name": "droidscord",
-  "module": "index.ts",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "bun run index.ts"
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./dist\""
   },
   "devDependencies": {
-    "bun-types": "^0.5.0"
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.8.0",
+    "dotenv": "^16.0.3"
   }
 }
