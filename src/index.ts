@@ -20,6 +20,62 @@ const client = new Client({
   ],
 });
 
+const queryAlgolia = async (query: string) => {
+  const response = await index.search(query);
+
+  console.log('[debug] response', response);
+
+  const msg = 'Ok! That was a good message!';
+
+  return msg;
+}
+
+type ResponseDocsBotFetch = {
+  answer: string,
+  sources: {
+    type: string,
+    title: string,
+    url: string,
+    page: string,
+    content: string,
+  },
+  id: string,
+};
+
+const queryDocsBotApi = async (query: string) => {
+  const botId = 'kfyP76122ztON4Prkdsf';
+  const teamId = 'IzEH9RyK34tl3vAR6Rst';
+  const url = `https://api.docsbot.ai/teams/${teamId}/bots/${botId}/ask`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  
+  var raw = JSON.stringify({
+    "question": query,
+    "full_source": false
+  });
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  try {
+    const response = await fetch(
+      url,
+      requestOptions as RequestInit
+    );
+    
+    const data: ResponseDocsBotFetch = await response.json();
+
+    return data?.answer;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 client.on('ready', () => {
   console.log('🤖 The Bot is online!');
 });
@@ -30,12 +86,16 @@ client.on('messageCreate', async (msg) => {
   try {
     await msg.channel.sendTyping();
 
-    const response = await index.search('rewards');
+    const replyMsg = await queryDocsBotApi(msg.content);
 
-    console.log('[debug] response', response);
+    if (!replyMsg) {
+      console.warn(`No answers for "${msg.content}"`);
+
+      return;
+    }
 
     // Discord has a message limit of 2000 char
-    msg.reply('Ok! That was a good message!');
+    msg.reply(replyMsg);
   } catch (err) {
     console.error(err);
   }
