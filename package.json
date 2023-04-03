@@ -13,6 +13,7 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
+    "@types/algoliasearch": "^4.0.0",
     "algoliasearch": "^4.16.0",
     "discord.js": "^14.8.0",
     "dotenv": "^16.0.3"

@@ -1,7 +1,16 @@
 import * as dotenv from 'dotenv'
 import { Client, IntentsBitField } from 'discord.js';
+import algoliasearch from 'algoliasearch';
 
 dotenv.config();
+
+// Connect and authenticate with your Algolia app
+const alogliaClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID as string,
+  process.env.ALGOLIA_SEARCH_API as string
+);
+
+const index = alogliaClient.initIndex(process.env.ALGOLIA_INDEX as string);
 
 const client = new Client({
   intents: [
@@ -12,7 +21,7 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-  console.log('🤖 Bot is online!');
+  console.log('🤖 The Bot is online!');
 });
 
 client.on('messageCreate', async (msg) => {
@@ -21,8 +30,12 @@ client.on('messageCreate', async (msg) => {
   try {
     await msg.channel.sendTyping();
 
+    const response = await index.search('rewards');
+
+    console.log('[debug] response', response);
+
     // Discord has a message limit of 2000 char
-    msg.reply('Ok! That was a good message');
+    msg.reply('Ok! That was a good message!');
   } catch (err) {
     console.error(err);
   }
