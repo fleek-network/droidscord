@@ -43,8 +43,8 @@ type ResponseDocsBotFetch = {
 };
 
 const queryDocsBotApi = async (query: string) => {
-  const botId = 'kfyP76122ztON4Prkdsf';
-  const teamId = 'IzEH9RyK34tl3vAR6Rst';
+  const botId = process.env.DOCSBOT_BOT_ID;
+  const teamId = process.env.DOCSBOT_TEAM_ID;
   const url = `https://api.docsbot.ai/teams/${teamId}/bots/${botId}/ask`;
 
   var myHeaders = new Headers();
