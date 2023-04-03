@@ -4,6 +4,8 @@ import algoliasearch from 'algoliasearch';
 
 dotenv.config();
 
+const DISCORD_MAX_MSG_CHAR_LENGTH = 2000;
+
 // Connect and authenticate with your Algolia app
 const alogliaClient = algoliasearch(
   process.env.ALGOLIA_APP_ID as string,
@@ -95,6 +97,8 @@ client.on('messageCreate', async (msg) => {
     }
 
     // Discord has a message limit of 2000 char
+    if (replyMsg.length > DISCORD_MAX_MSG_CHAR_LENGTH) return;
+
     msg.reply(replyMsg);
   } catch (err) {
     console.error(err);
