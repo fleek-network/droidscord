@@ -23,3 +23,27 @@ npm run dev
 ## Production
 
 Use systemd service, or [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+
+## Indexer
+
+Change directory
+
+```
+cd llm_indexer
+```
+
+Install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+Run the service API
+
+```
+OPENAI_API_KEY="xxx" uvicorn main:app --reload
+```
+
+Swagger API
+
+http://127.0.0.1:8000
