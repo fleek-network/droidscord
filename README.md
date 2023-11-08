@@ -83,3 +83,9 @@ https://discord.com/api/oauth2/authorize?client_id=<APP_ID>&permissions=<LONG_NU
 ### Add Bot to Server
 
 Copy the generated URL from [OAuth2](#oauth2) and accept all suggested permissions.
+
+## References
+
+### Discord.js
+
+[Introduction](https://discord.js.org/#/docs/discord.js/main/general/welcome)
