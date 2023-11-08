@@ -15,6 +15,7 @@
   "dependencies": {
     "@types/algoliasearch": "^4.0.0",
     "algoliasearch": "^4.16.0",
+    "dayjs": "^1.11.9",
     "discord.js": "^14.8.0",
     "dotenv": "^16.0.3"
   }
