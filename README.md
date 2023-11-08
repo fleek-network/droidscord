@@ -23,3 +23,63 @@ npm run dev
 ## Production
 
 Use systemd service, or [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+
+## Bot
+
+### Discord App Dashboard
+
+To configure a bot use the [dashboard](https://discord.com/developers/applications).
+
+### General information
+
+In **General information** name the application. Copy the **application id** and **public key** which's required to place under the environment variables. If working locally, create a local **.env** file as follows:
+
+```
+touch .env
+```
+
+Put the content by declaring the required environment variables and values, accordingly to the dashboard provided settings.
+
+```
+DISCORD_APP_ID="xxxx"
+DISCORD_PUBLIC_KEY="yyyy"
+WHITELIST_MSG_TIMEOUT_MINUTES="5"
+```
+
+### Bot
+
+Use the **Reset token** to get the environment variable value for `DISCORD_BOT_TOKEN`.
+
+### OAuth2
+
+Use the **URL Generator**
+
+
+Select the bot **scope** and toggle the following:
+
+The required bot permissions:
+
+- Manage roles
+- Kick Members
+- Ban Members
+- Read Messsages/View Channels
+- Moderate Members
+- Send Messages
+- Create Public Threads
+- Create Private Threads
+- Send Messages in Threads
+- Attach Files
+- Manage Messages
+- Read Message History
+- Mention Everyone
+- Use Slash Commands
+
+The URL will look like:
+
+```
+https://discord.com/api/oauth2/authorize?client_id=<APP_ID>&permissions=<LONG_NUMBER>&scope=bot
+```
+
+### Add Bot to Server
+
+Copy the generated URL from [OAuth2](#oauth2) and accept all suggested permissions.
