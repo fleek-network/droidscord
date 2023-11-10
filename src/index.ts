@@ -5,6 +5,8 @@ import {
   Message,
   User,
   GuildTextBasedChannel,
+  ChannelType,
+  TextChannel,
 } from "discord.js";
 import dayjs from "dayjs";
 
@@ -12,7 +14,7 @@ dotenv.config();
 
 // Const
 const MSG_WHITELIST_NOT_REQUIRED =
-  "👋 Hey! Since the Testnet Phase {1}, everyone was free to set up and run a node! There hasn't been whitelisting since and until further notice, you shouldn't be worried. Read our https://blog.fleek.network and check our documentation https://docs.fleek.network to learn more, please 🙏";
+  "👋 Hey! Since the Testnet Phase {1}, that all users are free to set up and run a node. There hasn't been any whitelisting since and until further notice, you shouldn't be worried. Read our https://blog.fleek.network and check our documentation https://docs.fleek.network to learn more, please 🙏";
 
 const deleteMsg = async ({ msg }: { msg: Message }) => {
   try {
@@ -84,8 +86,6 @@ client.on("messageCreate", async (msg) => {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
 
-    console.log("[debug] diffInMins ", diffInMins);
-
     if (
       diffInMins >
       parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
@@ -95,12 +95,16 @@ client.on("messageCreate", async (msg) => {
     }
   }
 
-  if (msg.content.toLowerCase() === "gm") {
-    if (!msg.inGuild()) return;
+  if (
+    ["gm", "gn"].some((greeting) =>
+      msg.content.toLowerCase().includes(greeting),
+    )
+  ) {
+    if (!msg.inGuild() || !msg.channel.isTextBased()) return;
 
     if (warningMsg.length) {
       try {
-        const res = await msg.channel.bulkDelete(warningMsg);
+        const res = await (msg.channel as TextChannel).bulkDelete(warningMsg);
         console.warn(`Deleted ${res.size} messages!`);
       } catch (err) {
         console.error("Oops! Failed to delete some messages");
@@ -123,7 +127,7 @@ client.on("messageCreate", async (msg) => {
 
     if (!hasSentMsg) {
       await sendMsgToChannel({
-        channel,
+        channel: channel as TextChannel,
         message,
       });
     }
