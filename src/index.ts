@@ -11,7 +11,12 @@ import dayjs from "dayjs";
 
 dotenv.config();
 
+enum Docs {
+  Site = "https://docs.fleek.network",
+}
+
 // Const
+const PREFIX = "!";
 const MSG_WHITELIST_NOT_REQUIRED =
   "👋 Hey! Since the Testnet Phase {1}, that all users are free to set up and run a node. There hasn't been any whitelisting since and until further notice, you shouldn't be worried. Read our https://blog.fleek.network and check our documentation https://docs.fleek.network to learn more, please 🙏";
 
@@ -129,6 +134,29 @@ client.on("messageCreate", async (msg) => {
         channel: channel as TextChannel,
         message,
       });
+    }
+  }
+
+  if (msg.content.startsWith(`${PREFIX}docs`)) {
+    if (msg.content === `${PREFIX}docs`) {
+      msg.channel.send(`Visit the documentation site at ${Docs.Site}`);
+
+      return;
+    }
+
+    const re = /^!docs\s(<@\d+>)$/g;
+    const match = msg.content.matchAll(re);
+
+    if (match) {
+      try {
+        const user = [...match][0][1];
+
+        msg.channel.send(
+          `👋 Hey ${user}, visit the documentation site at ${Docs.Site}`,
+        );
+      } catch (err) {
+        console.error(`Oops! Failed to send docs site url to user`);
+      }
     }
   }
 });
