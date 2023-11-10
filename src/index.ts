@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import algoliasearch from "algoliasearch";
 import {
   Client,
   IntentsBitField,
@@ -76,6 +77,15 @@ const client = new Client({
     IntentsBitField.Flags.GuildMembers,
   ],
 });
+
+const algoliaClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID as string,
+  process.env.ALGOLIA_SEARCH_API as string,
+);
+
+const algoliaIndex = algoliaClient.initIndex(
+  process.env.ALGOLIA_INDEX as string,
+);
 
 client.on("ready", () => {
   if (client.user) {
@@ -158,6 +168,23 @@ client.on("messageCreate", async (msg) => {
         console.error(`Oops! Failed to send docs site url to user`);
       }
     }
+  }
+
+  if (msg.content.startsWith(`${PREFIX}search`)) {
+    const query = msg.content.split(`${PREFIX}search`)[1];
+
+    if (!query) return;
+
+    const { hits } = await algoliaIndex.search(query);
+
+    const urls = hits
+      .map((data) => data?.url && `<${data.url}>`)
+      .filter((url) => url && !url.includes("/tags"));
+
+    if (!urls.length) return;
+
+    const answer = urls.join("\n");
+    msg.channel.send(`👋 Hey! Found the following results:\n\n ${answer}`);
   }
 });
 
