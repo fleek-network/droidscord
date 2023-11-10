@@ -5,7 +5,6 @@ import {
   Message,
   User,
   GuildTextBasedChannel,
-  ChannelType,
   TextChannel,
 } from "discord.js";
 import dayjs from "dayjs";
