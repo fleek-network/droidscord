@@ -6,7 +6,7 @@
 
 Help us reach the members of our communities quicker and to reduce the amount of time we spend on some interactions that can be easily mitigated by checking the documentation site and search functionalities.
 
-## 🧑🏾‍💻 Requirements
+## 🛹 Requirements
 
 - Nodejs
 - Typescript
@@ -83,6 +83,10 @@ https://discord.com/api/oauth2/authorize?client_id=<APP_ID>&permissions=<LONG_NU
 ### Add Bot to Server
 
 Copy the generated URL from [OAuth2](#oauth2) and accept all suggested permissions.
+
+### Restrict to channels
+
+Go to **Server settings** -> **Integrations** -> **Bots and Apps** -> **Manage** -> **Add and remove channels**
 
 ## References
 
