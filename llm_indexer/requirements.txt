@@ -1,0 +1,3 @@
+# third-party (libraries)
+llama-index==0.8.68
+fastapi==0.104.1
