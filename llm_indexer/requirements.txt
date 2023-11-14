@@ -1,3 +1,5 @@
-# third-party (libraries)
-llama-index==0.8.68
 fastapi==0.104.1
+html2text==2020.1.16
+llama-hub==0.0.44
+llama-index==0.8.68
+openai==1.2.3
