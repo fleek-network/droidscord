@@ -44,6 +44,11 @@ Put the content by declaring the required environment variables and values, acco
 DISCORD_APP_ID="xxxx"
 DISCORD_PUBLIC_KEY="yyyy"
 WHITELIST_MSG_TIMEOUT_MINUTES="5"
+DISCORD_CHANNEL_ID_GM_GN=""
+ALGOLIA_APP_ID=""
+ALGOLIA_SEARCH_API=""
+ALGOLIA_INDEX=""
+OPENAI_API_KEY=""
 ```
 
 ### Bot
@@ -87,6 +92,12 @@ Copy the generated URL from [OAuth2](#oauth2) and accept all suggested permissio
 ### Restrict to channels
 
 Go to **Server settings** -> **Integrations** -> **Bots and Apps** -> **Manage** -> **Add and remove channels**
+
+## Python Web Server
+
+```
+OPENAI_API_KEY="xxx" uvicorn main:app --reload
+```
 
 ## References
 
