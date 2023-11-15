@@ -15,6 +15,19 @@ We're mainly supporting GenuineIntel and there have been reports of failure to b
 
 For more details information about CPU, Memory and Disk Space requirements for Fleek Network Node, you can refer to the documentation at https://docs.fleek.network/docs/node/requirements
 
+# What Ports are required to install, set up and run the Fleek Network Node?
+
+The Ports required to install, set up and run the Fleek Network Node successfully are reserved in the following top-level ranges:
+
+- TCP 4200-4299
+- UDP 4300-4399
+
+The ports initiate and terminate network connections crucial for the node to operate in the Fleek Network. The operating system should have the ports enabled and open for the node to run successfully.
+
+Node Operators should avoid any port conflicts with other software running on the node, such as Firewall, ip tables, etc.
+
+For more detail information about the Ports, you can refer to the documentation at https://docs.fleek.network/docs/node/requirements#ports
+
 # What are the supported operating systems?
 
 The Fleek Network Node binary is only supported by Linux servers. Currently, we provide support for the following Linux server distributions:
