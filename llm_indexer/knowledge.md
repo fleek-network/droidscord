@@ -63,6 +63,24 @@ curl https://get.fleek.network | bash
 
 For more detailed instructions on how to install a Fleek Network node, you can refer to the documentation at https://docs.fleek.network/docs/node/install
 
+# How to install, set up or run a Fleek Network Node in Docker?
+
+You can install a Fleek Network Node in Docker. The quickest way to run the Fleek Network Node in a Docker container is by executing the command:
+
+```
+sudo docker run \
+    -p 4200-4299:4200-4299 \
+    -p 4300-4399:4300-4399 \
+    --mount type=bind,source=$HOME/.lightning,target=/home/lgtn/.lightning \
+    --mount type=bind,source=/var/tmp,target=/var/tmp \
+    --name lightning-node \
+    -it ghcr.io/fleek-network/lightning:latest
+```
+
+This command will bind the required ports and directories to the host, e.g. the port ranges 4200-4299, 4300-4399, directory $HOME/.lightning, and run an instance of the latest Docker image of the Fleek Network Node binary.
+
+For more details instructions on how to install, set up or run a Fleek Network Node in Docker, you can refer to the documentation at https://docs.fleek.network/docs/node/install/#docker-installation
+
 # Are the Fleek Network Node log messages ok?
 
 The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
@@ -88,3 +106,11 @@ curl -sS https://get.fleek.network/healthcheck | bash
 This command will perform a health check on your node and provide you with the necessary information.
 
 For more instructions to learn to check if your node is installed, set up and running correctly, refer to the documentation at https://docs.fleek.network/docs/node/health-check
+
+# When is the next testnet phase?
+
+When a Testnet Phase details are ready, the date, requirements are announced immediately in our Discord, Twitter and Blog.
+
+If a date, announcement is unavailable, you'll have to be patient and wait for the details.
+
+For the latest information about our Testnet Phase and any other announcements visit our blog at https://blog.fleek.network
