@@ -127,6 +127,14 @@ The documentation guide will provide detailed information on how to properly bac
 
 Please refer to the documentation guide for step-by-step instructions on how to backup the keystore for the Fleek Network Node.
 
+# How to update the Fleek Network Node?
+
+The easiest and quickest way to update the Fleek Network Node is to run the update script. If you have used the assisted installer, or followed the conventions described in the documentation site.
+
+```
+curl -sS https://get.fleek.network/update | bash
+```
+
 # Are the Fleek Network Node log messages ok?
 
 The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
@@ -160,3 +168,7 @@ When a Testnet Phase details are ready, the date, requirements are announced imm
 If a date, announcement is unavailable, you'll have to be patient and wait for the details.
 
 For the latest information about our Testnet Phase and any other announcements visit our blog at https://blog.fleek.network
+
+# What is the main documentation and blog site URL?
+
+The documentation website URL is https://docs.fleek.network, and the blog website URL is https://blog.fleek.network
