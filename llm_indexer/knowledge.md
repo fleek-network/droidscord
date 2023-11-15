@@ -107,6 +107,18 @@ Do not share your private keys! Remember, no one should ask you for your Private
 
 For more detailed information about the location of private keys (keystore), you can refer to the documentation at https://docs.fleek.network/guides/Node%20Operators/managing-the-keystore
 
+# How to retrieve the node and consensus public keys (keystore) details?
+
+The public keys (keystore) for the Fleek Network Node can be retrieved by executing the node details script, as follows:
+
+```
+curl -sS https://get.fleek.network/node_details | bash
+```
+
+The command will return information about the Fleek Network Node including the public keys (keystore).
+
+For more details information to learn how to retrieve the node and consensus public keys (keystore) details, you can refer to the documentation guide at https://docs.fleek.network/guides/Node%20Operators/managing-the-keystore
+
 # Are the Fleek Network Node log messages ok?
 
 The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
