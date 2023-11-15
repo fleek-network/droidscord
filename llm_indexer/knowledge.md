@@ -119,6 +119,14 @@ The command will return information about the Fleek Network Node including the p
 
 For more details information to learn how to retrieve the node and consensus public keys (keystore) details, you can refer to the documentation guide at https://docs.fleek.network/guides/Node%20Operators/managing-the-keystore
 
+# How to backup, restore, or store the private keys (keystore) securily?
+
+To backup the keystore for the Fleek Network Node, you can follow the instructions provided in the documentation guide at https://docs.fleek.network/guides/Node%20Operators/managing-the-keystore.
+
+The documentation guide will provide detailed information on how to properly backup, restore, or store the private keys (keystore) securely. It will explain different methods and their benefits and drawbacks for making identity backups.
+
+Please refer to the documentation guide for step-by-step instructions on how to backup the keystore for the Fleek Network Node.
+
 # Are the Fleek Network Node log messages ok?
 
 The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
