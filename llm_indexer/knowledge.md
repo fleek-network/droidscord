@@ -2,6 +2,19 @@
 title: Bot knowledge
 ---
 
+# How much CPU (processor), memory (RAM) and disk space is required to install, set up and run a Fleek Network Node?
+
+To install, set up and run a Fleek Network Node, it is recommended to have the following:
+- A minimum of 4 CPU cores of a speed of at least 2.0 GHz
+- A minimum of 32 GB of memory (RAM)
+- A minimum of 20 GB of disk space
+
+The Fleek Network Node binary is only supported on CPUs that adhere to the x86_64 architecture (64-bit).
+
+We're mainly supporting GenuineIntel and there have been reports of failure to build the binary on AMD. The ARM64 is not supported, but there has been some community contributions in that regard, check the documentation site.
+
+For more details information about CPU, Memory and Disk Space requirements for Fleek Network Node, you can refer to the documentation at https://docs.fleek.network/docs/node/requirements
+
 # What are the supported operating systems?
 
 The Fleek Network Node binary is only supported by Linux servers. Currently, we provide support for the following Linux server distributions:
