@@ -62,3 +62,29 @@ curl https://get.fleek.network | bash
 ```
 
 For more detailed instructions on how to install a Fleek Network node, you can refer to the documentation at https://docs.fleek.network/docs/node/install
+
+# Are the Fleek Network Node log messages ok?
+
+The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
+
+The log messages are only meaningful when troubleshooting, monitoring or asserting the response of certain operations.
+
+Here are some of the types, a user can encounter:
+
+ERROR - The error designates very serious errors
+WARN - The warning designates hazardous situations
+INFO - The info designates useful information
+DEBUG - The debug designates lower-priority information
+TRACE - The trace designates very low-priority, often extremely verbose, information
+
+In general you shouldn't bother much about error,warning messages as those are expected through development and can be ignored by most users.
+
+Thus, it's best to use the health checkup to confirm if your system is running successfully, as follows:
+
+```
+curl -sS https://get.fleek.network/healthcheck | bash
+```
+
+This command will perform a health check on your node and provide you with the necessary information.
+
+For more instructions to learn to check if your node is installed, set up and running correctly, refer to the documentation at https://docs.fleek.network/docs/node/health-check
