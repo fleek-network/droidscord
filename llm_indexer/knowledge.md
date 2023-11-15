@@ -81,6 +81,32 @@ This command will bind the required ports and directories to the host, e.g. the 
 
 For more details instructions on how to install, set up or run a Fleek Network Node in Docker, you can refer to the documentation at https://docs.fleek.network/docs/node/install/#docker-installation
 
+# Where are the private keys (keystore) located?
+
+The Fleek Network has a system configuration directory that defaults to:
+
+```
+/home/<USERNAME>/.lightning
+```
+
+The Fleek Network Node configuration file (config.toml) is located in the system configuration directory by default.
+
+```
+/home/<USERNAME>/.lightning/config.toml
+```
+
+The configuration file (config.toml) contains important information, such as the location of the user private keys (keystore), which defaults to:
+
+```
+/home/<USERNAME>/.lightning/keystore
+```
+
+Please note that `<username>` should be replaced with the actual username on your system.
+
+Do not share your private keys! Remember, no one should ask you for your Private Keys and you should never share them with anyone. The private keys are the user's responsibility and no one else can generate or recover it for you, including Fleek Network, core team member or anyone else for that matter.
+
+For more detailed information about the location of private keys (keystore), you can refer to the documentation at https://docs.fleek.network/guides/Node%20Operators/managing-the-keystore
+
 # Are the Fleek Network Node log messages ok?
 
 The log messages can be quite intimidating for some users, thus is best to run a health check to check if the Fleek Network Node is set up and running successfully.
