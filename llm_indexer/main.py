@@ -1,12 +1,11 @@
-from typing import Union
 from fastapi import FastAPI
-import os
-from llama_index import QuestionAnswerPrompt,  SimpleDirectoryReader, SimpleWebPageReader, SummaryIndex, TreeIndex
+from llama_index import SummaryIndex
 from llama_hub.web.sitemap.base import SitemapReader
 from pathlib import Path
 from llama_index import download_loader, ServiceContext
 from llama_index.prompts import PromptTemplate
 from llama_index.llms import OpenAI
+from llama_index.indices.query.schema import QueryType
 
 app = FastAPI()
 loader = SitemapReader()
@@ -35,7 +34,7 @@ def read_root():
   return "pong"
 
 @app.get("/query")
-def query(question: Union[str, None] = None):
+def query(question: QueryType):
   documents = loader.load_data(file=Path("./knowledge.md"))
 
   index = SummaryIndex.from_documents(documents, service_context=service_context)
