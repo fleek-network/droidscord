@@ -172,3 +172,19 @@ For the latest information about our Testnet Phase and any other announcements v
 # What is the main documentation and blog site URL?
 
 The documentation website URL is https://docs.fleek.network, and the blog website URL is https://blog.fleek.network
+
+# How to uninstall, remove or delete a Fleek Network Node?
+
+A Fleek Network Node can be uninstalled in different ways depending on how it was installed. There are three known methods to consider:
+
+- Assisted installer
+- Docker
+- Manual install
+
+If you used the assisted installer, you can refer to the documentation at https://docs.fleek.network/references/Lightning%20CLI/uninstall-lightning-node for instructions on how to uninstall the node.
+
+If you installed the Fleek Network Node to run in Docker, follow the instructions at https://docs.fleek.network/references/Docker/uninstall-docker-setup to uninstall it.
+
+For manual installs, you will need to revise all the steps you performed during installation and uninstall it on your own. 
+
+If you need more information, please visit the main documentation website at https://docs.fleek.network.
