@@ -5,7 +5,6 @@ from pathlib import Path
 from llama_index import download_loader, ServiceContext
 from llama_index.prompts import PromptTemplate
 from llama_index.llms import OpenAI
-from llama_index.indices.query.schema import QueryType
 
 app = FastAPI()
 loader = SitemapReader()
@@ -15,6 +14,7 @@ service_context = ServiceContext.from_defaults(llm=llm)
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
+documents = loader.load_data(file=Path("./knowledge.md"))
 
 template = (
     "We have provided knowledge below. \n"
@@ -34,9 +34,7 @@ def read_root():
   return "pong"
 
 @app.get("/query")
-def query(question: QueryType):
-  documents = loader.load_data(file=Path("./knowledge.md"))
-
+def query(question: str):
   index = SummaryIndex.from_documents(documents, service_context=service_context)
 
   query_engine = index.as_query_engine()
