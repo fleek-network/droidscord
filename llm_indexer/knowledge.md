@@ -188,3 +188,7 @@ If you installed the Fleek Network Node to run in Docker, follow the instruction
 For manual installs, you will need to revise all the steps you performed during installation and uninstall it on your own. 
 
 If you need more information, please visit the main documentation website at https://docs.fleek.network.
+
+# Where to get the Fleek Network Whitepaper?
+
+The Fleek Network Whitepaper is available in https://whitepaper.fleek.network
