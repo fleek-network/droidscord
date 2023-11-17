@@ -7,5 +7,7 @@ services:
       - .env
   discordjs-bot:
     build: .
-    env_file:
-      - .env
+    volumes:
+      - ${PWD}/.env.prod:/var/www/.env.prod
+    restart: unless-stopped
+    
