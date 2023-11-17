@@ -10,7 +10,7 @@ Help us reach the members of our communities quicker and to reduce the amount of
 
 - Nodejs
 - Typescript
-- Discord API [Application ID and Key](https://discord.com/developers/applications/)
+- Discord API [lication ID and Key](https://discord.com/developers/applications/)
 
 ## Run dev server?
 
@@ -144,6 +144,20 @@ dist
 ```
 
 ## Compose stack
+
+### Env vars
+
+Create a .env.prod
+
+```
+touch .env.prod
+```
+
+Add all required environment variables.
+
+:::caution
+The convention is to use the in-memory enviroment variables, but since the bot is to run under a private network not accessible externally, it was opted for developer experience convinience to use a .env.prod in the local file system. If there are issues with that, then the environment variables should be prepared/declared up-front in the compose.yaml file instead.
+:::
 
 Run the stack:
 
