@@ -123,10 +123,39 @@ docker run \
   --env-file ../.env
   llm_indexer
 ```
-
 :::note
 Depending on the Docker version you're running, the `docker run --env-file` has a bug, not parsing the environment variable. Unfortunately, this means that it'll not unquote the value, causing issues. Reported in https://github.com/docker/cli/issues/4665
 :::
+
+## Discord nodejs bot
+
+### Build
+
+```
+npm run build
+```
+
+The output/distribution directory is `dist`:
+
+```
+dist
+├── index.js
+└── tsconfig.tsbuildinfo
+```
+
+## Compose stack
+
+Run the stack:
+
+```sh
+docker compose run
+```
+
+Run a single container via compose:
+
+```sh
+docker compose run --rm <SERVICE_NAME>
+```
 
 ## References
 
