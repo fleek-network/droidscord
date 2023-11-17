@@ -5,9 +5,12 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    volumes:
+      - ${PWD}/llm_indexer:/var/www
   discordjs-bot:
     build: .
     volumes:
+      - ${PWD}:/var/www
       - ${PWD}/.env.prod:/var/www/.env.prod
     restart: unless-stopped
     
