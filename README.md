@@ -49,6 +49,7 @@ ALGOLIA_APP_ID=""
 ALGOLIA_SEARCH_API=""
 ALGOLIA_INDEX=""
 OPENAI_API_KEY=""
+LLM_MODEL=""
 ```
 
 ### Bot
@@ -96,7 +97,7 @@ Go to **Server settings** -> **Integrations** -> **Bots and Apps** -> **Manage**
 ## Python Web Server
 
 ```
-OPENAI_API_KEY="xxx" uvicorn main:app --reload
+uvicorn main:app --reload --env-file ../.env
 ```
 
 ## References
