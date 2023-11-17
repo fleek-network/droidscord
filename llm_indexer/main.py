@@ -15,7 +15,6 @@ service_context = ServiceContext.from_defaults(llm=llm)
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
-documents = loader.load_data(file=Path("./knowledge/faq.md"))
 
 template = (
     "We have provided knowledge below. \n"
@@ -36,6 +35,10 @@ def read_root():
 
 @app.get("/query")
 def query(question: str):
+  # The document is load on request
+  # to allows to quickly deploy changes
+  # as otherwise, would have to restart
+  documents = loader.load_data(file=Path("./knowledge/faq.md"))
   index = SummaryIndex.from_documents(documents, service_context=service_context)
 
   query_engine = index.as_query_engine()
