@@ -12,6 +12,24 @@ import dayjs from "dayjs";
 
 dotenv.config();
 
+type AlgoliaHitHierarchy = {
+  lvl0: string | null;
+  lvl1: string | null;
+  lvl2: string | null;
+  lvl3: string | null;
+  lvl4: string | null;
+  lvl5: string | null;
+  lvl6: string | null;
+};
+
+type AlgoliaHit = {
+  anchor: string;
+  content: string | null;
+  hierarchy: AlgoliaHitHierarchy;
+  objectID: string;
+  url: string;
+};
+
 enum Docs {
   Site = "https://docs.fleek.network",
 }
@@ -175,10 +193,14 @@ client.on("messageCreate", async (msg) => {
 
     if (!query) return;
 
-    const { hits } = await algoliaIndex.search(query);
+    const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
 
     const urls = hits
-      .map((data) => data?.url && `<${data.url}>`)
+      .map((data) => {
+        if (data.url === undefined) return;
+
+        return data?.url && `<${data.url}>`;
+      })
       .filter((url) => url && !url.includes("/tags"));
 
     if (!urls.length) return;
