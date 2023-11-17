@@ -1,0 +1,13 @@
+#!/bin/sh
+
+dotenv=".env.prod"
+
+if [ ! -f "$dotenv" ]; then
+	echo "👹 Oops! Missing $dotenv"
+
+	exit 1
+fi
+
+export $(cat "$dotenv" | xargs)
+
+node dist
