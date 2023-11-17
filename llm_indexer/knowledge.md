@@ -192,3 +192,7 @@ If you need more information, please visit the main documentation website at htt
 # Where to get the Fleek Network Whitepaper?
 
 The Fleek Network Whitepaper is available in https://whitepaper.fleek.network
+
+# Where to find the Fleek Network roadmap?
+
+The Fleek Network Roadmap is available in https://docs.fleek.network/docs/roadmap
