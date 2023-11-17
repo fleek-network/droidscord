@@ -5,16 +5,17 @@ from pathlib import Path
 from llama_index import download_loader, ServiceContext
 from llama_index.prompts import PromptTemplate
 from llama_index.llms import OpenAI
+import os
 
 app = FastAPI()
 loader = SitemapReader()
 
-llm = OpenAI(temperature=0.1, model="gpt-3.5-turbo")
+llm = OpenAI(temperature=0.1, model=os.getenv('LLM_MODEL', 'gpt-3.5-turbo'))
 service_context = ServiceContext.from_defaults(llm=llm)
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
-documents = loader.load_data(file=Path("./knowledge.md"))
+documents = loader.load_data(file=Path("./knowledge/faq.md"))
 
 template = (
     "We have provided knowledge below. \n"
@@ -43,8 +44,6 @@ def query(question: str):
   )
 
   answer = query_engine.query(question)
-
-  print(answer)
 
   return { "answer": str(answer )}
 
