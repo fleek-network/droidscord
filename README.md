@@ -123,9 +123,8 @@ docker run \
   --env-file ../.env
   llm_indexer
 ```
-:::note
-Depending on the Docker version you're running, the `docker run --env-file` has a bug, not parsing the environment variable. Unfortunately, this means that it'll not unquote the value, causing issues. Reported in https://github.com/docker/cli/issues/4665
-:::
+
+> Depending on the Docker version you're running, the `docker run --env-file` has a bug, not parsing the environment variable. Unfortunately, this means that it'll not unquote the value, causing issues. Reported in https://github.com/docker/cli/issues/4665
 
 ## Discord nodejs bot
 
@@ -155,9 +154,7 @@ touch .env.prod
 
 Add all required environment variables.
 
-:::caution
-The convention is to use the in-memory enviroment variables, but since the bot is to run under a private network not accessible externally, it was opted for developer experience convinience to use a .env.prod in the local file system. If there are issues with that, then the environment variables should be prepared/declared up-front in the compose.yaml file instead.
-:::
+> The convention is to use the in-memory enviroment variables, but since the bot is to run under a private network not accessible externally, it was opted for developer experience convinience to use a .env.prod in the local file system. If there are issues with that, then the environment variables should be prepared/declared up-front in the compose.yaml file instead.
 
 Run the stack:
 
