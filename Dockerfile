@@ -7,4 +7,4 @@ RUN yarn
 RUN yarn add typescript tsc
 RUN yarn build
 
-CMD ["node", "dist"]
+CMD ["./init"]
