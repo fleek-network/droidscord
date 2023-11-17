@@ -5,3 +5,7 @@ services:
       - "8000:8000"
     env_file:
       - .env
+  discordjs-bot:
+    build: .
+    env_file:
+      - .env
