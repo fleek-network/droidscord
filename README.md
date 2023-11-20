@@ -159,7 +159,7 @@ Add all required environment variables.
 Run the stack:
 
 ```sh
-docker compose run
+docker compose up
 ```
 
 Run a single container via compose:
