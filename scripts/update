@@ -1,8 +1,15 @@
 #!/bin/bash
 
+targetBranch="develop"
 wrkDir="/home/discord/droidscord"
 
 cd "$wrkDir" || exit 1
+
+if ! git checkout "$targetBranch"; then
+  echo "👹 Oops! Failed to switch branch"
+
+  exit 1
+fi
 
 if ! git pull origin main; then
   echo "👹 Oops! Failed to pull latest"
