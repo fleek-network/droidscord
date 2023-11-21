@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Update
+      - name: Connect remote & update
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: ls -la
+          command: |
+            cd /home/discord/droidscord
+            ./scripts/update
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
