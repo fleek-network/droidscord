@@ -1,4 +1,8 @@
-!#/bin/bash
+#!/bin/bash
+
+wrkDir="/home/discord/droidscord"
+
+cd "$wrkDir" || exit 1
 
 if ! git pull origin main; then
   echo "👹 Oops! Failed to pull latest"
