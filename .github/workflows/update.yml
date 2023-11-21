@@ -12,12 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Update
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: |
-            ./scripts/update
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
+      - uses: actions/checkout@v4
+
+      - name: TIAS
+        run: ls -la
+
+      # - name: Update
+      #   uses: garygrossgarten/github-action-ssh@release
+      #   with:
+      #     command: |
+      #       ./scripts/update
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     privateKey: ${{ secrets.PRIVATE_KEY}}
