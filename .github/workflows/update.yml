@@ -14,14 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: TIAS
-        run: ls -la
-
-      # - name: Update
-      #   uses: garygrossgarten/github-action-ssh@release
-      #   with:
-      #     command: |
-      #       ./scripts/update
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     privateKey: ${{ secrets.PRIVATE_KEY}}
+      - name: Update
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -la
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
