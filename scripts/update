@@ -17,6 +17,20 @@ if ! git pull origin main; then
   exit 1
 fi
 
+if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
+  echo "⚠️  Warning: Docker compose stack is down"
+  echo "🤖 Should start compose stack, be patient..."
+
+  if ! docker compose up; then
+    echo "👹 Oops! Failed to start compose stack"
+
+    exit 1
+  fi
+fi
+
+
 if ! docker compose restart; then
   echo "👹 Oops! Failed to restart docker compose"
+
+  exit 1
 fi
