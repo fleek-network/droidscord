@@ -9,6 +9,7 @@ import {
   TextChannel,
 } from "discord.js";
 import dayjs from "dayjs";
+import axios from "axios";
 
 dotenv.config();
 
@@ -207,6 +208,28 @@ client.on("messageCreate", async (msg) => {
 
     const answer = urls.join("\n");
     msg.channel.send(`👋 Hey! Found the following results:\n\n ${answer}`);
+  }
+
+  if (msg.content.startsWith(`${PREFIX}ask`)) {
+    const query = msg.content.split(`${PREFIX}ask`)[1];
+
+    msg.channel.send(
+      `👀 ${msg.author.toString()} received the query "${query}", please be patient while I check..`,
+    );
+
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/query?question=${query}`,
+      );
+
+      msg.channel.send(`👋 ${msg.author.toString()} ${res.data.answer}`);
+    } catch (err) {
+      console.error(err);
+
+      msg.channel.send(
+        `${msg.author.toString()} Oops! Failed to get an answer for some reason...`,
+      );
+    }
   }
 });
 
