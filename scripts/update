@@ -1,0 +1,11 @@
+!#/bin/bash
+
+if ! git pull origin main; then
+  echo "👹 Oops! Failed to pull latest"
+
+  exit 1
+fi
+
+if ! docker compose restart; then
+  echo "👹 Oops! Failed to restart docker compose"
+fi
