@@ -10,8 +10,17 @@ import {
 } from "discord.js";
 import dayjs from "dayjs";
 import axios from "axios";
+import Queue from "bee-queue";
 
 dotenv.config();
+
+type Job = {
+  data: {
+    query: string;
+    channelId: string;
+    user: User;
+  };
+};
 
 type AlgoliaHitHierarchy = {
   lvl0: string | null;
@@ -34,6 +43,15 @@ type AlgoliaHit = {
 enum Docs {
   Site = "https://docs.fleek.network",
 }
+
+const sharedConfig = {
+  isWorker: true,
+  removeOnSuccess: true,
+  redis: {
+    host: process.env.REDIS_HOSTNAME,
+  },
+};
+const llmQueue = new Queue("LLM_QUERY", sharedConfig);
 
 // Const
 const PREFIX = "!";
@@ -117,6 +135,7 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", async (msg) => {
+  const { channelId } = msg;
   if (msg.content.includes("whitelist")) {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
@@ -213,30 +232,48 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (msg.content.startsWith(`${PREFIX}ask`)) {
+    const user = msg.author;
     let query = msg.content.split(`${PREFIX}ask`)[1];
     query = query.replace(/[\W_]+/g, " ").trim();
 
     msg.channel.send(
-      `👀 Hey ${msg.author.toString()} received the query "${query}", please be patient while I check..`,
+      `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`,
     );
 
-    try {
-      const res = await axios.get(
-        `http://${process.env.LLM_INDEXER_ADDR}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
-      );
+    const job = await llmQueue
+      .createJob({
+        channelId,
+        query,
+        user,
+      })
+      .save();
 
-      msg.channel.send(
-        `👋 Hey ${msg.author.toString()} ${
-          res.data.answer
-        }\n\n${MSG_WARNING_ASSISTED_AI}`,
-      );
-    } catch (err) {
-      console.error(err);
+    job
+      .on("succeeded", (result) => {
+        msg.channel.send(
+          `👋 Hey ${user.toString()} ${result}\n\n${MSG_WARNING_ASSISTED_AI}`,
+        );
+      })
+      .on("progress", () => {
+        console.log("Job progress");
+      })
+      .on("failed", () => {
+        console.log("Job failed");
+      });
+  }
+});
 
-      msg.channel.send(
-        `${msg.author.toString()} Oops! Failed to get an answer for some reason...`,
-      );
-    }
+llmQueue.process(async (job: Job) => {
+  const { query } = job.data;
+
+  try {
+    const res = await axios.get(
+      `http://${process.env.LLM_INDEXER_HOSTNAME}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
+    );
+
+    return res.data.answer;
+  } catch (err) {
+    console.error(err);
   }
 });
 
