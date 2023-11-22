@@ -16,7 +16,7 @@ services:
     depends_on:
       - redis
   redis:
-    image: redis:latest
+    image: redis:alpine
     command: |
       redis-server /usr/local/etc/redis/redis.conf
     env_file:
