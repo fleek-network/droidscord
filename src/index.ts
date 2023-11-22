@@ -222,7 +222,7 @@ client.on("messageCreate", async (msg) => {
 
     try {
       const res = await axios.get(
-        `http://${LLM_INDEXER_ADDR}:${LLM_INDEXER_PORT}/query?question=${query}`,
+        `http://${process.env.LLM_INDEXER_ADDR}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
       );
 
       msg.channel.send(
