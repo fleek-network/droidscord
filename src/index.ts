@@ -213,7 +213,8 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (msg.content.startsWith(`${PREFIX}ask`)) {
-    const query = msg.content.split(`${PREFIX}ask`)[1];
+    let query = msg.content.split(`${PREFIX}ask`)[1];
+    query = query.replace(/[\W_]+/g, " ").trim();
 
     msg.channel.send(
       `👀 Hey ${msg.author.toString()} received the query "${query}", please be patient while I check..`,
@@ -221,7 +222,7 @@ client.on("messageCreate", async (msg) => {
 
     try {
       const res = await axios.get(
-        `http://localhost:8000/query?question=${query}`,
+        `http://${LLM_INDEXER_ADDR}:${LLM_INDEXER_PORT}/query?question=${query}`,
       );
 
       msg.channel.send(
