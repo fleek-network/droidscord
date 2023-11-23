@@ -69,13 +69,15 @@ const MSG_WARNING_ASSISTED_AI =
 
     await mongoose.connect(process.env.MONGODB_URL);
   } catch (err) {
-    console.error("Oops! Failed to connect to monbodb");
+    console.error(err);
+
+    throw new Error("Oops! Failed to connect to mongo");
   }
 })();
 
 const mongoQuerySchema = new mongoose.Schema({
-  question: String,
-  answer: String,
+  query: String,
+  response: String,
 });
 const MongoQuery = mongoose.model("Query", mongoQuerySchema);
 
@@ -254,15 +256,13 @@ client.on("messageCreate", async (msg) => {
     const user = msg.author;
     let query = msg.content.split(`${PREFIX}ask`)[1];
     query = query.replace(/[\W_]+/g, " ").trim();
-    const cacheQuery = await MongoQuery.findOne({
-      where: {
-        query,
-      },
+    const cacheQuery = await mongoose.model("Query").findOne({
+      query,
     });
 
-    if (cacheQuery?.answer) {
+    if (cacheQuery?.response) {
       msg.channel.send(
-        `👋 Hey ${user.toString()} ${cacheQuery?.answer}\n\n${MSG_WARNING_ASSISTED_AI}`,
+        `👋 Hey ${user.toString()} ${cacheQuery?.response}\n\n${MSG_WARNING_ASSISTED_AI}`,
       );
 
       return;
@@ -281,10 +281,20 @@ client.on("messageCreate", async (msg) => {
       .save();
 
     job
-      .on("succeeded", (result) => {
+      .on("succeeded", async (response) => {
         msg.channel.send(
-          `👋 Hey ${user.toString()} ${result}\n\n${MSG_WARNING_ASSISTED_AI}`,
+          `👋 Hey ${user.toString()} ${response}\n\n${MSG_WARNING_ASSISTED_AI}`,
         );
+
+        try {
+          const mquery = new MongoQuery({
+            query,
+            response,
+          });
+          await mquery.save();
+        } catch (err) {
+          console.error("Oops! Failed to save query");
+        }
       })
       .on("progress", () => {
         console.log("Job progress");
