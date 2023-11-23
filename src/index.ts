@@ -125,6 +125,20 @@ const sendMsgToChannel = async ({
   }
 };
 
+const sendMsgFoundLLMAnswer = ({
+  msg,
+  user,
+  response,
+}: {
+  msg: Message;
+  user: User;
+  response: string;
+}) => {
+  msg.channel.send(
+    `👋 Hey ${user.toString()} ${response}\n\n${MSG_WARNING_ASSISTED_AI}`,
+  );
+};
+
 let lastWhiteListMsg = dayjs();
 let warningMsg: Message[] = [];
 
@@ -261,9 +275,11 @@ client.on("messageCreate", async (msg) => {
     });
 
     if (cacheQuery?.response) {
-      msg.channel.send(
-        `👋 Hey ${user.toString()} ${cacheQuery?.response}\n\n${MSG_WARNING_ASSISTED_AI}`,
-      );
+      sendMsgFoundLLMAnswer({
+        msg,
+        user,
+        response: cacheQuery.response,
+      });
 
       return;
     }
@@ -282,9 +298,11 @@ client.on("messageCreate", async (msg) => {
 
     job
       .on("succeeded", async (response) => {
-        msg.channel.send(
-          `👋 Hey ${user.toString()} ${response}\n\n${MSG_WARNING_ASSISTED_AI}`,
-        );
+        sendMsgFoundLLMAnswer({
+          msg,
+          user,
+          response,
+        });
 
         try {
           const mquery = new MongoQuery({
