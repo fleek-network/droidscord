@@ -28,7 +28,7 @@ services:
       - 6379:6379
     restart: always
   mongodb:
-    image: bitnami/mongodb:latest
+    image: mongo:latest
     env_file:
       - .env
     ports:
