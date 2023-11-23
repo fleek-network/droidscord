@@ -17,14 +17,14 @@ if ! git checkout "$targetBranch"; then
   exit 1
 fi
 
-if ! git pull origin main; then
+if ! git pull origin "$targetBranch"; then
   echo "👹 Oops! Failed to pull latest"
 
   exit 1
 fi
 
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
-  echo "⚠️  Warning: Docker compose stack is down"
+  echo "⚠️  Warrning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
 
   if ! docker compose up -d; then
