@@ -254,6 +254,19 @@ client.on("messageCreate", async (msg) => {
     const user = msg.author;
     let query = msg.content.split(`${PREFIX}ask`)[1];
     query = query.replace(/[\W_]+/g, " ").trim();
+    const cacheQuery = await MongoQuery.findOne({
+      where: {
+        query,
+      },
+    });
+
+    if (cacheQuery?.answer) {
+      msg.channel.send(
+        `👋 Hey ${user.toString()} ${cacheQuery?.answer}\n\n${MSG_WARNING_ASSISTED_AI}`,
+      );
+
+      return;
+    }
 
     msg.channel.send(
       `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`,
