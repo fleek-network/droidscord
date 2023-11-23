@@ -5,23 +5,19 @@ wrkDir="/home/discord/droidscord"
 
 cd "$wrkDir" || exit 1
 
-if ! git reset --hard "$targetBranch"; then
-  echo "👹 Oops! Failed to clear stage"
-
-  exit 1
-fi
-
 if ! git checkout "$targetBranch"; then
   echo "👹 Oops! Failed to switch branch"
 
   exit 1
 fi
 
-if ! git pull origin "$targetBranch"; then
-  echo "👹 Oops! Failed to pull latest"
+if ! git fetch origin || ! git reset --hard "origin/$targetBranch"; then
+  echo "👹 Oops! Failed to clear stage"
 
   exit 1
 fi
+
+git clean -f
 
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
   echo "⚠️  Warrning: Docker compose stack is down"
