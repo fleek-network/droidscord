@@ -27,3 +27,11 @@ services:
     ports:
       - 6379:6379
     restart: always
+  mongodb:
+    image: bitnami/mongodb:latest
+    env_file:
+      - .env
+    ports:
+      - 27017:27017
+    volumes:
+      - ${PWD}/mongodb:/data/db
