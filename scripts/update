@@ -27,7 +27,7 @@ if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer ru
   echo "⚠️  Warning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
 
-  if ! docker compose up; then
+  if ! docker compose up -d; then
     echo "👹 Oops! Failed to start compose stack"
 
     exit 1
