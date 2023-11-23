@@ -5,6 +5,12 @@ wrkDir="/home/discord/droidscord"
 
 cd "$wrkDir" || exit 1
 
+if ! git reset --hard "$targetBranch"; then
+  echo "👹 Oops! Failed to clear stage"
+
+  exit 1
+fi
+
 if ! git checkout "$targetBranch"; then
   echo "👹 Oops! Failed to switch branch"
 
