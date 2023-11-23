@@ -19,6 +19,9 @@ fi
 
 git clean -f
 
+echo "[INFO] Current commit"
+git show --oneline -s
+
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
   echo "⚠️  Warrning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
