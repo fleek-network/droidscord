@@ -64,10 +64,16 @@ const MSG_WARNING_ASSISTED_AI =
 // Mongodb init
 (async () => {
   try {
-    if (!process.env.MONGODB_URL)
-      throw Error("Oops! Missing MONGODB_URL env var");
+    const { MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD, MONGO_DB_NAME } = process.env;
 
-    await mongoose.connect(process.env.MONGODB_URL);
+    if (!MONGO_INITDB_ROOT_USERNAME || !MONGO_INITDB_ROOT_PASSWORD || ! MONGO_DB_NAME)
+      throw Error("Oops! Missing one or more mongo env vars");
+
+    await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
+      authSource: "admin",
+      user: MONGO_INITDB_ROOT_USERNAME,
+      pass: MONGO_INITDB_ROOT_PASSWORD,
+    });
   } catch (err) {
     console.error(err);
 
