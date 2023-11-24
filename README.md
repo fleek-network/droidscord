@@ -185,11 +185,7 @@ localhost:8081
 Kill tunnel
 
 ```
-ssh -O exit <SERVER-IP>
-```
-
-```
-ssh -O cancel -L 8081:127.0.0.1:8081 <USER@SERVER-IP>
+kill $(lsof -t -i:8081)
 ```
 
 ## References
