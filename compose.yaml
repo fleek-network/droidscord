@@ -35,3 +35,10 @@ services:
       - 27017:27017
     volumes:
       - ${PWD}/mongodb:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8081:8081
