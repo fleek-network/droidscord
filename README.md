@@ -168,6 +168,30 @@ Run a single container via compose:
 docker compose run --rm <SERVICE_NAME>
 ```
 
+### Create mongo express tunnel
+
+Create a tunnel via ssh to open mongo express locally
+
+```sh
+ssh -i <PUBKEY> -N -L 8081:127.0.0.1:8081 <USER@SERVER-IP>
+```
+
+Open the address in the browser and use the specified user/pw (ME_CONFIG_BASICAUTH_USERNAME/ME_CONFIG_BASICAUTH_PASSWORD):
+
+```
+localhost:8081
+```
+
+Kill tunnel
+
+```
+ssh -O exit <SERVER-IP>
+```
+
+```
+ssh -O cancel -L 8081:127.0.0.1:8081 <USER@SERVER-IP>
+```
+
 ## References
 
 ### Discord.js
