@@ -168,7 +168,23 @@ Run a single container via compose:
 docker compose run --rm <SERVICE_NAME>
 ```
 
-### Create mongo express tunnel
+### Create bridged network
+
+```
+docker network create --subnet 172.19.0.0/16 private
+```
+
+IP Tables
+
+```
+sudo iptables --insert docker-custom-private-network -s 172.19.0.0/16 -j REJECT --reject-with icmp-port-unreachable
+```
+  
+```
+sudo iptables --insert docker-custom-private-network -s 172.19.0.0/16 -m state --state RELATED,ESTABLISHED -j RETURN
+```
+
+### Create mongo express tunnel
 
 Create a tunnel via ssh to open mongo express locally
 
