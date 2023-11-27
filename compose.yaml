@@ -31,8 +31,6 @@ services:
     image: mongo:latest
     env_file:
       - .env
-    ports:
-      - 27017:27017
     volumes:
       - ${PWD}/mongodb:/data/db
   mongo-express:
