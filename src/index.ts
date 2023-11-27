@@ -64,9 +64,17 @@ const MSG_WARNING_ASSISTED_AI =
 // Mongodb init
 (async () => {
   try {
-    const { MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD, MONGO_DB_NAME } = process.env;
+    const {
+      MONGO_INITDB_ROOT_USERNAME,
+      MONGO_INITDB_ROOT_PASSWORD,
+      MONGO_DB_NAME,
+    } = process.env;
 
-    if (!MONGO_INITDB_ROOT_USERNAME || !MONGO_INITDB_ROOT_PASSWORD || ! MONGO_DB_NAME)
+    if (
+      !MONGO_INITDB_ROOT_USERNAME ||
+      !MONGO_INITDB_ROOT_PASSWORD ||
+      !MONGO_DB_NAME
+    )
       throw Error("Oops! Missing one or more mongo env vars");
 
     await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
