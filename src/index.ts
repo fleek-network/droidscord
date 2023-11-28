@@ -335,6 +335,27 @@ client.on("messageCreate", async (msg) => {
         console.log("Job failed");
       });
   }
+
+  if (msg.content.startsWith(`${PREFIX}help`)) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}!
+      **How to Get Help**
+
+      - Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
+      - Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
+      **Help Us to Help You**
+      - Imagine you are the one trying to help. Ask the question in a way that you would want to read!
+      - Try to find the answer in the documentation site, e.g. use the search option
+      - Read the responses you are given.
+      - Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
+      **No Answer?**
+      - Do not mention uninvolved people to get a response.
+      - Try to give more context / improve your description.
+      - Try to find a solution yourself while waiting
+      - Try to rephrase your question.
+      `,
+    );
+  }
 });
 
 llmQueue.process(async (job: Job) => {
