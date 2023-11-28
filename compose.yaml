@@ -1,14 +1,11 @@
 services:
   llm_indexer:
     build: ./llm_indexer
-    ports:
-      - "8000:8000"
     env_file:
       - .env
     volumes:
       - ${PWD}/llm_indexer:/var/www
     networks:
-      - public
       - private
   discordjs-bot:
     build: .
@@ -30,8 +27,6 @@ services:
     volumes:
       - ${PWD}/redis:/var/lib/redis
       - ${PWD}/redis.conf:/usr/local/etc/redis/redis.conf
-    ports:
-      - 6379:6379
     restart: always
     networks:
       - private
