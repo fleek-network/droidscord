@@ -22,6 +22,20 @@ git clean -f
 echo "[INFO] Current commit"
 git show --oneline -s
 
+echo "[INFO] Update packages"
+if ! npm install; then
+  echo "👹 Oops! Failed to npm install"
+
+  exit 1
+fi
+
+echo "[INFO] Build"
+if ! npm run build; then
+  echo "👹 Oops! Failed to build"
+
+  exit 1
+fi
+
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
   echo "⚠️  Warrning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
