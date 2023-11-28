@@ -3,10 +3,10 @@ services:
     build: ./llm_indexer
     env_file:
       - .env
+    ports:
+      - 127.0.0.1:8000:8000
     volumes:
       - ${PWD}/llm_indexer:/var/www
-    networks:
-      - private
   discordjs-bot:
     build: .
     volumes:
@@ -15,9 +15,6 @@ services:
     restart: unless-stopped
     depends_on:
       - redis
-    networks:
-      - public
-      - private
   redis:
     image: redis:alpine
     command: |
@@ -28,29 +25,16 @@ services:
       - ${PWD}/redis:/var/lib/redis
       - ${PWD}/redis.conf:/usr/local/etc/redis/redis.conf
     restart: always
-    networks:
-      - private
   mongodb:
     image: mongo:latest
     env_file:
       - .env
     volumes:
       - ${PWD}/mongodb:/data/db
-    networks:
-      - private
   mongo-express:
     image: mongo-express
     restart: always
     env_file:
       - .env
     ports:
-      - 8081:8081
-    networks:
-      - private
-
-networks:
-  public:
-    driver: bridge
-  private:
-    driver: bridge
-    internal: true
+      - 127.0.0.1:8081:8081
