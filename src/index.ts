@@ -341,7 +341,7 @@ client.on("messageCreate", async (msg) => {
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}!
 
-**How to Get Help**
+\r\n**How to Get Help**
 
 - Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
 - Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
@@ -357,6 +357,14 @@ client.on("messageCreate", async (msg) => {
 - Try to give more context / improve your description.
 - Try to find a solution yourself while waiting
 - Try to rephrase your question.
+
+**To learn more visit:**
+<https://docs.fleek.network>
+
+**For Node Operator CLI options run:**
+\`\`\`
+curl https://get.fleek.network | bash
+\`\`\`
       `,
     );
   }
