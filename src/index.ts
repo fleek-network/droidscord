@@ -337,22 +337,26 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (msg.content.startsWith(`${PREFIX}help`)) {
+    // Warning: the text literal lack of indentation has a purpose, do not change
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}!
-      \r\n**How to Get Help**\r\n\n
 
-      \r\n- Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
-      \r\n- Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
-      \r\n\n**Help Us to Help You**
-      \r\n- Imagine you are the one trying to help. Ask the question in a way that you would want to read!
-      \r\n- Try to find the answer in the documentation site, e.g. use the search option
-      \r\n- Read the responses you are given.
-      \r\n- Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
-      \r\n\n**No Answer?**
-      \r\n- Do not mention uninvolved people to get a response.
-      \r\n- Try to give more context / improve your description.
-      \r\n- Try to find a solution yourself while waiting
-      \r\n- Try to rephrase your question.
+**How to Get Help**
+
+- Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
+- Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
+
+**Help Us to Help You**
+- Imagine you are the one trying to help. Ask the question in a way that you would want to read!
+- Try to find the answer in the documentation site, e.g. use the search option
+- Read the responses you are given.
+- Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
+
+**No Answer?**
+- Do not mention uninvolved people to get a response.
+- Try to give more context / improve your description.
+- Try to find a solution yourself while waiting
+- Try to rephrase your question.
       `,
     );
   }
