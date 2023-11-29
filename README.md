@@ -22,7 +22,7 @@ npm run dev
 
 ## Production
 
-Use systemd service, or [PM2](https://pm2.keymetrics.io/docs/usage/quick-start/)
+Uses Docker Compose stack
 
 ## Bot
 
