@@ -11,7 +11,7 @@ services:
     build: .
     volumes:
       - ${PWD}:/var/www
-      - ${PWD}/.env.prod:/var/www/.env.prod
+      - ${PWD}/.env:/var/www/.env
     restart: unless-stopped
     depends_on:
       - redis

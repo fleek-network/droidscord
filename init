@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dotenv=".env.prod"
+dotenv=".env"
 
 if [ ! -f "$dotenv" ]; then
 	echo "👹 Oops! Missing $dotenv"
