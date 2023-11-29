@@ -358,6 +358,10 @@ client.on("messageCreate", async (msg) => {
 - Try to find a solution yourself while waiting
 - Try to rephrase your question.
 
+**Chat commands**
+- !search <query> e.g. !search how to install
+- !ask <query> e.g. !ask how to do a healthcheck
+
 **To learn more visit:**
 <https://docs.fleek.network>
 
