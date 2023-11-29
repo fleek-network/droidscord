@@ -364,7 +364,7 @@ client.on("messageCreate", async (msg) => {
 **To learn more visit:**
 <https://docs.fleek.network>
 
-**For Node Operator CLI options run:**
+**For Node Operator options tools run:**
 \`\`\`
 curl https://get.fleek.network | bash
 \`\`\`
