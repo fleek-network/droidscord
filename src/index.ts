@@ -199,7 +199,7 @@ client.on("ready", () => {
 client.on("messageCreate", async (msg) => {
   const { channelId } = msg;
 
-  if (whitelistChannelIds.includes(channelId)) {
+  if (!whitelistChannelIds.includes(channelId)) {
     console.log(`[debug] blocked channelId ${channelId}`);
     return;
   }
