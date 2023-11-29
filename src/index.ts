@@ -342,7 +342,6 @@ client.on("messageCreate", async (msg) => {
       `👀 Hey ${msg.author.toString()}!
 
 \r\n**How to Get Help**
-
 - Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
 - Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
 
