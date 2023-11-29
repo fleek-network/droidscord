@@ -55,6 +55,19 @@ const sharedConfig = {
 const llmQueue = new Queue("LLM_QUERY", sharedConfig);
 
 // Const
+const whitelistChannelIds = (() => {
+  if (!process.env.WHITELIST_CHANNEL_IDS) {
+    throw new Error("Oops! The WHITELIST_CHANNEL_IDS env var is not set");
+  }
+
+  const data = process.env.WHITELIST_CHANNEL_IDS.split(",");
+
+  if (!data.length) {
+    throw new Error("Oops! Empty WHITELIST_CHANNEL_IDS env var");
+  }
+
+  return [...data];
+})();
 const PREFIX = "!";
 const MSG_WHITELIST_NOT_REQUIRED =
   "👋 Hey! Since the Testnet Phase {1}, that all users are free to set up and run a node. There hasn't been any whitelisting since and until further notice, you shouldn't be worried. Read our https://blog.fleek.network and check our documentation https://docs.fleek.network to learn more, please 🙏";
@@ -185,6 +198,12 @@ client.on("ready", () => {
 
 client.on("messageCreate", async (msg) => {
   const { channelId } = msg;
+
+  if (whitelistChannelIds.includes(channelId)) {
+    console.log(`[debug] blocked channelId ${channelId}`);
+    return;
+  }
+
   if (msg.content.includes("whitelist")) {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
