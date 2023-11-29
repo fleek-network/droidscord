@@ -3,8 +3,8 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN yarn
-RUN yarn add typescript tsc
-RUN yarn build
+RUN npm install
+RUN npm install -g typescript tsc
+RUN npm run build
 
 CMD ["./init"]
