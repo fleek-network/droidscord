@@ -10,7 +10,7 @@ Help us reach the members of our communities quicker and to reduce the amount of
 
 - Nodejs
 - Typescript
-- Discord API [lication ID and Key](https://discord.com/developers/applications/)
+- Discord API [Application ID and Key](https://discord.com/developers/applications/)
 
 ## Run dev server?
 
