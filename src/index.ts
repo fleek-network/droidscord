@@ -250,7 +250,7 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
     );
   }
 
-  if (msg.content.match(/([hH]ow|[wW]hat).*(view|watch).*logs/gm)) {
+  if (msg.content.match(/([hH]ow|[wW]hat).*(check|view|watch).*logs/gm)) {
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
 
