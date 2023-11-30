@@ -227,7 +227,14 @@ client.on("messageCreate", async (msg) => {
     }
   }
 
-  if (msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm)) {
+  if (
+    msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm) ||
+    msg.content.match(/.*([wW]hat|[ww]here).*happen.*node.*role/gm) ||
+    msg.content.match(
+      /.*([wW]hy|[wW]here|[hH]ad|[hH]ave).*role.*(delete|remove|lost|disappear|vanish)/gm,
+    ) ||
+    msg.content.match(/.*([nN]o).*node.*role/gm)
+  ) {
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
     );
