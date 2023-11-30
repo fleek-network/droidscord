@@ -266,6 +266,16 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
   }
 
   if (
+    msg.content.match(
+      /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
+    )
+  ) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help?`,
+    );
+  }
+
+  if (
     ["gm", "gn"].some((greeting) =>
       msg.content.toLowerCase().startsWith(greeting),
     )
