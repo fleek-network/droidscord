@@ -206,7 +206,10 @@ client.on("messageCreate", async (msg) => {
     return;
   }
 
-  if (msg.content.includes("whitelist")) {
+  if (
+    msg.content.includes("whitelist") ||
+    msg.content.match(/.*(form|application|apply|join).*(test|testnet)/gm)
+  ) {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
 
