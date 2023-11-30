@@ -229,6 +229,21 @@ client.on("messageCreate", async (msg) => {
     );
   }
 
+  if (msg.content.match(/.*[iI]s.*it.*working/gm)) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
+
+To do a health check run the command in the server:
+
+\`\`\`
+curl -sS https://get.fleek.network/healthcheck | bash
+\`\`\`
+
+To learn more visit https://docs.fleek.network/docs/node/health-check
+      `,
+    );
+  }
+
   if (
     ["gm", "gn"].some((greeting) =>
       msg.content.toLowerCase().startsWith(greeting),
