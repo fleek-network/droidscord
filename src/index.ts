@@ -302,7 +302,9 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
     )
   ) {
     msg.channel.send(
-      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>, Blog (<https://blog.fleek.network/>) or Twitter (<https://twitter.com/fleek_net>). Thanks for your patience and understanding!`,
+      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
+      
+Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>). Thanks for your patience and understanding!`,
     );
   }
 
