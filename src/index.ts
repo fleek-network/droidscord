@@ -390,6 +390,15 @@ curl https://get.fleek.network | bash
       `,
     );
   }
+
+  if (
+    msg.content.matchAll(/.*[wW][h]en.*reward[s]/gm) ||
+    msg.content.matchAll(/.*[wW][h]en.*incentive[s]/)
+  ) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}! We're working hard to make sure that the rewards mechanism is top-notch before we roll it out. Our team takes great care to deploy and test under the testnet, but it's important to note that the testnet is not incentivized. Therefore, rewards and incentives will only be available on the mainnet after passing rigorous tests. Rest assured, we're doing everything we can to make sure that you'll be rewarded for your efforts. Thank you for your patience and understanding!`,
+    );
+  }
 });
 
 llmQueue.process(async (job: Job) => {
