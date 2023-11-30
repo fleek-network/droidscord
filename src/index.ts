@@ -197,6 +197,8 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", async (msg) => {
+  if (msg.author.bot) return;
+
   const { channelId } = msg;
 
   if (!whitelistChannelIds.includes(channelId)) {
