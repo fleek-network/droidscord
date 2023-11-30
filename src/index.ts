@@ -227,6 +227,12 @@ client.on("messageCreate", async (msg) => {
     }
   }
 
+  if (msg.content.match(/.*([hH]ow|[cC]an).*(install|setup).*node/gm)) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`,
+    );
+  }
+
   if (
     msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm) ||
     msg.content.match(/.*([wW]hat|[ww]here).*happen.*node.*role/gm) ||
