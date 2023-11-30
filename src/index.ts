@@ -271,7 +271,7 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
     )
   ) {
     msg.channel.send(
-      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help?`,
+      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`,
     );
   }
 
