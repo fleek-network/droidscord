@@ -229,7 +229,10 @@ client.on("messageCreate", async (msg) => {
     );
   }
 
-  if (msg.content.match(/.*[iI]s.*(it|node).*working/gm)) {
+  if (
+    msg.content.match(/.*[iI]s.*(it|node).*working/gm) ||
+    msg.content.match(/.*[hH]ow.*if.*node.*working/gm)
+  ) {
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
 
