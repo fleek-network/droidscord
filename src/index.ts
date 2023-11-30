@@ -217,7 +217,11 @@ client.on("messageCreate", async (msg) => {
     }
   }
 
-  if (["gm", "gn"].some((greeting) => msg.content.toLowerCase() == greeting)) {
+  if (
+    ["gm", "gn"].some((greeting) =>
+      msg.content.toLowerCase().startsWith(greeting),
+    )
+  ) {
     if (!msg.inGuild() || !msg.channel.isTextBased()) return;
 
     if (warningMsg.length) {
