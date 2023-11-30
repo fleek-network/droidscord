@@ -108,6 +108,9 @@ const mongoQuerySchema = new mongoose.Schema({
 });
 const MongoQuery = mongoose.model("Query", mongoQuerySchema);
 
+// App in-memory state
+let whiteListMsgCount = 0;
+
 const deleteMsg = async ({ msg }: { msg: Message }) => {
   try {
     await msg?.delete();
@@ -214,11 +217,13 @@ client.on("messageCreate", async (msg) => {
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
 
     if (
+      whiteListMsgCount < 1 ||
       diffInMins >
-      parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
+        parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
     ) {
       msg.channel.send(MSG_WHITELIST_NOT_REQUIRED);
       lastWhiteListMsg = currentWhiteListMsg;
+      whiteListMsgCount += 1;
     }
   }
 
