@@ -227,6 +227,12 @@ client.on("messageCreate", async (msg) => {
     }
   }
 
+  if (msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm)) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
+    );
+  }
+
   if (
     msg.content.match(/.*[wW]h?en.*(reward|incentive)s?/gm) ||
     msg.content.match(/.*[hH]ow.*get.*rewards?/gm) ||
