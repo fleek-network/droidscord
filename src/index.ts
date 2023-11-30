@@ -297,6 +297,14 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
   }
 
   if (
+    msg.content.match(/.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*phase/gm)
+  ) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>, Blog (<https://blog.fleek.network/>) or Twitter (<https://twitter.com/fleek_net>). Thanks for your patience and understanding!`,
+    );
+  }
+
+  if (
     ["gm", "gn"].some((greeting) =>
       msg.content.toLowerCase().startsWith(greeting),
     )
