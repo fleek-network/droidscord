@@ -234,12 +234,27 @@ client.on("messageCreate", async (msg) => {
     msg.content.match(/.*[hH]ow.*if.*node.*working/gm) ||
     msg.content.match(/.*[iI]s.*it.*working.*properly/gm) ||
     msg.content.match(/.*logs.*([oO][kK]|good|normal)/gm) ||
-    msg.content.match(/.*(normal|correct).*logs/gm)
+    msg.content.match(/.*(normal|standard|correct).*logs/gm)
   ) {
     msg.channel.send(
       `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
 
 To do a health check run the command in the server:
+
+\`\`\`
+curl -sS https://get.fleek.network/healthcheck | bash
+\`\`\`
+
+To learn more visit https://docs.fleek.network/docs/node/health-check
+      `,
+    );
+  }
+
+  if (msg.content.match(/([hH]ow|[wW]hat).*(view|watch).*logs/gm)) {
+    msg.channel.send(
+      `👀 Hey ${msg.author.toString()}, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
+
+To run a health check do:
 
 \`\`\`
 curl -sS https://get.fleek.network/healthcheck | bash
