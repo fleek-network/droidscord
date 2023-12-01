@@ -207,19 +207,6 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (
-    msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm) ||
-    msg.content.match(/.*([wW]hat|[ww]here).*happen.*node.*role/gm) ||
-    msg.content.match(
-      /.*([wW]hy|[wW]here|[hH]ad|[hH]ave).*role.*(delete|remove|lost|disappear|vanish)/gm,
-    ) ||
-    msg.content.match(/.*([nN]o).*node.*role/gm)
-  ) {
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
-    );
-  }
-
-  if (
     msg.content.match(/.*[wW]h?en.*(reward|incentive|token)s?/gm) ||
     msg.content.match(/.*[hH]ow.*get.*rewards?/gm) ||
     msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm)

@@ -33,7 +33,7 @@ const whitelistQueries: OnMessageCreate = {
       diffInMins >
         parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
     ) {
-      msg.channel.send(whitelistNotRequired);
+      msg.reply(whitelistNotRequired);
       lastWhiteListMsg = currentWhiteListMsg;
       whiteListMsgCount += 1;
     }
@@ -43,9 +43,18 @@ const whitelistQueries: OnMessageCreate = {
 const installSetupQueries: OnMessageCreate = {
   expr: (msg) => !!msg.content.match(/.*([hH]ow|[cC]an).*(install|setup).*node/gm),
   cb: (msg) => {
-    msg.channel.send(
+    msg.reply(
       // TODO: refactor/use a text message template instead
       `👀 Hey ${msg.author.toString()}, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`,
+    );
+  },
+}
+
+const RolesQueries: OnMessageCreate = {
+  expr: (msg) => !!(msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm) || msg.content.match(/.*([wW]hat|[ww]here).*happen.*node.*role/gm) || msg.content.match(/.*([wW]hy|[wW]here|[hH]ad|[hH]ave).*role.*(delete|remove|lost|disappear|vanish)/gm) || msg.content.match(/.*([nN]o).*node.*role/gm)),
+  cb: (msg) => {
+    msg.reply(
+      `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
     );
   },
 }
@@ -53,4 +62,5 @@ const installSetupQueries: OnMessageCreate = {
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
+  RolesQueries,
 ]
