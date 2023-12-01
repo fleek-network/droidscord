@@ -7,7 +7,7 @@ import {
   TextChannel,
 } from "discord.js";
 import dayjs from "dayjs";
-import { whitelistNotRequired } from '../Messages/index';
+import { whitelistNotRequired } from '../Messages/index.js';
 import assert from 'assert';
 
 assert(process.env.WHITELIST_MSG_TIMEOUT_MINUTES, new Error('Oops! Missing WHITELIST_MSG_TIMEOUT_MINUTES env var'))

@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
-import { onMessageCreate } from './ListenerTriggers';
+import { onMessageCreate } from './ListenerTriggers/index.js';
 
 dotenv.config();
 
