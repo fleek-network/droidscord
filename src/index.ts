@@ -247,7 +247,7 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (
-    msg.content.match(/.*[wW]h?en.*(reward|incentive)s?/gm) ||
+    msg.content.match(/.*[wW]h?en.*(reward|incentive|token)s?/gm) ||
     msg.content.match(/.*[hH]ow.*get.*rewards?/gm) ||
     msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm)
   ) {
