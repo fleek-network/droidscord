@@ -115,6 +115,20 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
   },
 }
 
+const AskForHelpQueries: OnMessageCreate = {
+  expr: (msg) => !!(
+    msg.content.match(
+      /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
+    )
+  ),
+  cb: (msg) => {
+    // TODO: use text tmplt instead
+    msg.reply(
+      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`,
+    );
+  },
+}
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
@@ -122,4 +136,5 @@ export const onMessageCreate: OnMessageCreate[] = [
   RewardIncentivesQueries,
   NodeWorkingCorrectlyQueries,
   WatchLogsQueries,
+  AskForHelpQueries,
 ]
