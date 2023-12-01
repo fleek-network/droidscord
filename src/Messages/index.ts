@@ -1,0 +1,2 @@
+export const whitelistNotRequired =
+  "👋 Hey! Since the Testnet Phase {1}, that all users are free to set up and run a node. There hasn't been any whitelisting since and until further notice, you shouldn't be worried. Read our https://blog.fleek.network and check our documentation https://docs.fleek.network to learn more, please 🙏";
