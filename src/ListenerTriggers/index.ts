@@ -181,6 +181,7 @@ const GreentingQueries: OnMessageCreate = {
     const hasSentMsg = await sendMsgToUser({
       user,
       message,
+      channel: channel as TextChannel,
     });
 
     if (!hasSentMsg) {

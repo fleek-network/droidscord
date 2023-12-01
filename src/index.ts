@@ -12,6 +12,7 @@ import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
 import { onMessageCreate } from './ListenerTriggers/index.js';
+import { deleteMsg, sendMsgToUser, sendMsgToChannel, sendMsgFoundLLMAnswer } from './Utils/index.js';
 
 dotenv.config();
 
@@ -105,64 +106,6 @@ const mongoQuerySchema = new mongoose.Schema({
   response: String,
 });
 const MongoQuery = mongoose.model("Query", mongoQuerySchema);
-
-const deleteMsg = async ({ msg }: { msg: Message }) => {
-  try {
-    await msg?.delete();
-  } catch (err) {
-    console.error(`Oops! Failed to delete ${msg?.id}`);
-  }
-};
-
-const sendMsgToUser = async ({
-  user,
-  message,
-}: {
-  user: User;
-  message: string;
-}) => {
-  try {
-    if (user.id) {
-      const res = await user.send(message);
-
-      if (!res) return false;
-    }
-  } catch (err) {
-    console.error("Oops! Failed to send a DM to user");
-
-    return false;
-  }
-
-  return true;
-};
-
-const sendMsgToChannel = async ({
-  channel,
-  message,
-}: {
-  channel: GuildTextBasedChannel;
-  message: string;
-}) => {
-  try {
-    await channel.send(message);
-  } catch (err) {
-    console.error("Oops! Failed to send message to channel");
-  }
-};
-
-const sendMsgFoundLLMAnswer = ({
-  msg,
-  user,
-  response,
-}: {
-  msg: Message;
-  user: User;
-  response: string;
-}) => {
-  msg.reply(
-    `👋 Hey ${user.toString()} ${response}\n\n${MSG_WARNING_ASSISTED_AI}`,
-  );
-};
 
 const client = new Client({
   intents: [
@@ -305,9 +248,9 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (msg.content.startsWith(`${PREFIX}help`)) {
+    // TODO: use text tmplt instead
     // Warning: the text literal lack of indentation has a purpose, do not change
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}!
+    const message = `👀 Hey ${msg.author.toString()}!
 
 \r\n**How to Get Help**
 - Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
@@ -329,15 +272,29 @@ client.on("messageCreate", async (msg) => {
 - !search <query> e.g. !search how to install
 - !ask <query> e.g. !ask how to do a healthcheck
 
+👆 The commands only work in the Fleek Network channels
+
 **To learn more visit:**
 <https://docs.fleek.network>
 
 **For Node Operator options tools run:**
 \`\`\`
 curl https://get.fleek.network | bash
-\`\`\`
-      `,
-    );
+\`\`\``;
+
+    const hasSentMsg = await sendMsgToUser({
+      user: msg.author,
+      message,
+      channel: msg.channel as TextChannel,
+    });
+
+    if (!hasSentMsg) {
+      await sendMsgToChannel({
+        channel: msg.channel as TextChannel,
+        // TODO: use text templt instead
+        message: `👀 Hey ${msg.author.toString()}, failed to DM you. Activate your DM and try again, please!`,
+      });
+    }
   }
 });
 
