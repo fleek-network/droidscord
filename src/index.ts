@@ -164,8 +164,6 @@ const sendMsgFoundLLMAnswer = ({
   );
 };
 
-let warningMsg: Message[] = [];
-
 const client = new Client({
   intents: [
     IntentsBitField.Flags.Guilds,
@@ -198,13 +196,13 @@ client.on("messageCreate", async (msg) => {
 
   const { channelId } = msg;
 
-  // Traverse listener triggers
-  onMessageCreate.forEach(({ expr, cb }) => expr(msg) && cb(msg));
-
   if (!whitelistChannelIds.includes(channelId)) {
     console.log(`[debug] blocked channelId ${channelId}`);
     return;
   }
+
+  // Traverse listener triggers
+  onMessageCreate.forEach(({ expr, cb }) => expr(msg) && cb(msg));
 
   if (msg.content.startsWith(`${PREFIX}docs`)) {
     if (msg.content === `${PREFIX}docs`) {
