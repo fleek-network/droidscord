@@ -234,7 +234,7 @@ client.on("messageCreate", async (msg) => {
       .on("succeeded", async (response) => {
         const message = `👋 Hey ${user.toString()} ${cacheQuery.response}\n\n${warningAssistedAI}`;
 
-        sendMsgCommonHandler({
+        await sendMsgCommonHandler({
           msg,
           user,
           message,
