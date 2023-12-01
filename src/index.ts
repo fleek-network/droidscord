@@ -232,7 +232,7 @@ client.on("messageCreate", async (msg) => {
 
     job
       .on("succeeded", async (response) => {
-        const message = `👋 Hey ${user.toString()} ${cacheQuery.response}\n\n${warningAssistedAI}`;
+        const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
 
         await sendMsgCommonHandler({
           msg,
@@ -317,7 +317,7 @@ llmQueue.process(async (job: Job) => {
       `http://${process.env.LLM_INDEXER_HOSTNAME}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
     );
 
-    return res.data.answer;
+    return res.data.answer as string;
   } catch (err) {
     console.error(err);
   }
