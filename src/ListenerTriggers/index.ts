@@ -9,12 +9,14 @@ import {
 import dayjs from "dayjs";
 import { whitelistNotRequired } from '../Messages/index.js';
 import assert from 'assert';
+import { deleteMsg, sendMsgToUser, sendMsgToChannel, sendMsgFoundLLMAnswer } from '../Utils/index.js';
 
 assert(process.env.WHITELIST_MSG_TIMEOUT_MINUTES, new Error('Oops! Missing WHITELIST_MSG_TIMEOUT_MINUTES env var'))
 
 // App in-memory state
 let whiteListMsgCount = 0;
 let lastWhiteListMsg = dayjs();
+let warningMsg: Message[] = [];
 
 type OnMessageCreate = {
   expr: (msg: Message) => boolean,
@@ -147,6 +149,47 @@ Thanks for your patience and understanding!`,
   },
 }
 
+const GreentingQueries: OnMessageCreate = {
+  expr: (msg) => !!(
+    ["gm", "gn"].some((greeting) =>
+      msg.content.toLowerCase().startsWith(greeting),
+    )
+  ),
+  cb: async (msg) => {
+    if (!msg.inGuild() || !msg.channel.isTextBased()) return;
+
+    if (warningMsg.length) {
+      try {
+        const res = await (msg.channel as TextChannel).bulkDelete(warningMsg);
+        console.warn(`Deleted ${res.size} messages!`);
+      } catch (err) {
+        console.error("Oops! Failed to delete some messages");
+      }
+    }
+
+    await deleteMsg({
+      msg,
+    });
+
+    const { author: user, channel } = msg;
+    const message = `${msg.author.toString()} for greetings use the channel <#${
+      process.env.DISCORD_CHANNEL_ID_GM_GN
+    }>`;
+
+    const hasSentMsg = await sendMsgToUser({
+      user,
+      message,
+    });
+
+    if (!hasSentMsg) {
+      await sendMsgToChannel({
+        channel: channel as TextChannel,
+        message,
+      });
+    }
+  },
+}
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
@@ -156,4 +199,5 @@ export const onMessageCreate: OnMessageCreate[] = [
   WatchLogsQueries,
   AskForHelpQueries,
   AskNextTesnetPhaseQueries,
+  GreentingQueries,
 ]

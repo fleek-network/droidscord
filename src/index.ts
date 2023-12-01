@@ -206,44 +206,6 @@ client.on("messageCreate", async (msg) => {
     return;
   }
 
-  if (
-    ["gm", "gn"].some((greeting) =>
-      msg.content.toLowerCase().startsWith(greeting),
-    )
-  ) {
-    if (!msg.inGuild() || !msg.channel.isTextBased()) return;
-
-    if (warningMsg.length) {
-      try {
-        const res = await (msg.channel as TextChannel).bulkDelete(warningMsg);
-        console.warn(`Deleted ${res.size} messages!`);
-      } catch (err) {
-        console.error("Oops! Failed to delete some messages");
-      }
-    }
-
-    await deleteMsg({
-      msg,
-    });
-
-    const { author: user, channel } = msg;
-    const message = `${msg.author.toString()} for greetings use the channel <#${
-      process.env.DISCORD_CHANNEL_ID_GM_GN
-    }>`;
-
-    const hasSentMsg = await sendMsgToUser({
-      user,
-      message,
-    });
-
-    if (!hasSentMsg) {
-      await sendMsgToChannel({
-        channel: channel as TextChannel,
-        message,
-      });
-    }
-  }
-
   if (msg.content.startsWith(`${PREFIX}docs`)) {
     if (msg.content === `${PREFIX}docs`) {
       msg.reply(`Visit the documentation site at ${Docs.Site}`);
