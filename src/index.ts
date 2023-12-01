@@ -8,10 +8,10 @@ import {
   GuildTextBasedChannel,
   TextChannel,
 } from "discord.js";
-import dayjs from "dayjs";
 import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
+import { onMessageCreate } from './ListenerTriggers';
 
 dotenv.config();
 
@@ -159,7 +159,7 @@ const sendMsgFoundLLMAnswer = ({
   user: User;
   response: string;
 }) => {
-  msg.channel.send(
+  msg.reply(
     `👋 Hey ${user.toString()} ${response}\n\n${MSG_WARNING_ASSISTED_AI}`,
   );
 };
@@ -198,6 +198,9 @@ client.on("messageCreate", async (msg) => {
 
   const { channelId } = msg;
 
+  // Traverse listener triggers
+  onMessageCreate.forEach(({ expr, cb }) => expr(msg) && cb(msg));
+
   if (!whitelistChannelIds.includes(channelId)) {
     console.log(`[debug] blocked channelId ${channelId}`);
     return;
@@ -211,7 +214,7 @@ client.on("messageCreate", async (msg) => {
     ) ||
     msg.content.match(/.*([nN]o).*node.*role/gm)
   ) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
     );
   }
@@ -221,7 +224,7 @@ client.on("messageCreate", async (msg) => {
     msg.content.match(/.*[hH]ow.*get.*rewards?/gm) ||
     msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm)
   ) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, seems that you are talking about incentives or rewards? We're working hard to make sure that the rewards mechanism is top-notch before we roll it out. Our team takes great care to deploy and test under the testnet, but it's important to note that the testnet is not incentivized. Therefore, rewards and incentives will only be available on the mainnet after passing rigorous tests. Rest assured, we're doing everything we can to make sure that you'll be rewarded for your efforts. To learn more visit the documentation site https://docs.fleek.network, thanks for your patience and understanding!`,
     );
   }
@@ -233,7 +236,7 @@ client.on("messageCreate", async (msg) => {
     msg.content.match(/.*logs.*([oO][kK]|good|normal)/gm) ||
     msg.content.match(/.*(normal|standard|correct).*logs/gm)
   ) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
 
 To do a health check run the command in the server:
@@ -248,7 +251,7 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
   }
 
   if (msg.content.match(/([hH]ow|[wW]hat).*(check|view|watch).*logs/gm)) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
 
 To run a health check do:
@@ -267,7 +270,7 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
       /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
     )
   ) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`,
     );
   }
@@ -277,7 +280,7 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
       /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
     )
   ) {
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
       
 Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
@@ -326,7 +329,7 @@ Thanks for your patience and understanding!`,
 
   if (msg.content.startsWith(`${PREFIX}docs`)) {
     if (msg.content === `${PREFIX}docs`) {
-      msg.channel.send(`Visit the documentation site at ${Docs.Site}`);
+      msg.reply(`Visit the documentation site at ${Docs.Site}`);
 
       return;
     }
@@ -338,7 +341,7 @@ Thanks for your patience and understanding!`,
       try {
         const user = [...match][0][1];
 
-        msg.channel.send(
+        msg.reply(
           `👋 Hey ${user}, visit the documentation site at ${Docs.Site}`,
         );
       } catch (err) {
@@ -365,7 +368,7 @@ Thanks for your patience and understanding!`,
     if (!urls.length) return;
 
     const answer = urls.join("\n");
-    msg.channel.send(`👋 Hey! Found the following results:\n\n ${answer}`);
+    msg.reply(`👋 Hey! Found the following results:\n\n ${answer}`);
   }
 
   if (msg.content.startsWith(`${PREFIX}ask`)) {
@@ -386,7 +389,7 @@ Thanks for your patience and understanding!`,
       return;
     }
 
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`,
     );
 
@@ -426,7 +429,7 @@ Thanks for your patience and understanding!`,
 
   if (msg.content.startsWith(`${PREFIX}help`)) {
     // Warning: the text literal lack of indentation has a purpose, do not change
-    msg.channel.send(
+    msg.reply(
       `👀 Hey ${msg.author.toString()}!
 
 \r\n**How to Get Help**
