@@ -1,17 +1,14 @@
 import {
-  Client,
-  IntentsBitField,
   Message,
-  User,
-  GuildTextBasedChannel,
   TextChannel,
 } from "discord.js";
 import dayjs from "dayjs";
 import { whitelistNotRequired } from '../Messages/index.js';
 import assert from 'assert';
-import { deleteMsg, sendMsgToUser, sendMsgToChannel, sendMsgFoundLLMAnswer } from '../Utils/index.js';
+import { deleteMsg, sendMsgToUser, sendMsgToChannel } from '../Utils/index.js';
 
-assert(process.env.WHITELIST_MSG_TIMEOUT_MINUTES, new Error('Oops! Missing WHITELIST_MSG_TIMEOUT_MINUTES env var'))
+assert(process.env.WHITELIST_MSG_TIMEOUT_MINUTES, new Error('Oops! Missing WHITELIST_MSG_TIMEOUT_MINUTES env var'));
+assert(process.env.DISCORD_CHANNEL_ID_GM_GN, new Error('Oops! Missing DISCORD_CHANNEL_ID_GM_GN env var'));
 
 // App in-memory state
 let whiteListMsgCount = 0;
@@ -35,6 +32,7 @@ const whitelistQueries: OnMessageCreate = {
       diffInMins >
         parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
     ) {
+      // TODO: use text tmplt instead
       msg.reply(whitelistNotRequired);
       lastWhiteListMsg = currentWhiteListMsg;
       whiteListMsgCount += 1;
@@ -55,6 +53,7 @@ const installSetupQueries: OnMessageCreate = {
 const RolesQueries: OnMessageCreate = {
   expr: (msg) => !!(msg.content.match(/.*[hH]ow.*(get|pick).*roles?/gm) || msg.content.match(/.*([wW]hat|[ww]here).*happen.*node.*role/gm) || msg.content.match(/.*([wW]hy|[wW]here|[hH]ad|[hH]ave).*role.*(delete|remove|lost|disappear|vanish)/gm) || msg.content.match(/.*([nN]o).*node.*role/gm)),
   cb: (msg) => {
+    // TODO: use text tmplt instead
     msg.reply(
       `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
     );
@@ -68,6 +67,7 @@ const RewardIncentivesQueries: OnMessageCreate = {
     msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm)
   ),
   cb: (msg) => {
+    // TODO: use text tmplt instead
     msg.reply(
       `👀 Hey ${msg.author.toString()}, seems that you are talking about incentives or rewards? We're working hard to make sure that the rewards mechanism is top-notch before we roll it out. Our team takes great care to deploy and test under the testnet, but it's important to note that the testnet is not incentivized. Therefore, rewards and incentives will only be available on the mainnet after passing rigorous tests. Rest assured, we're doing everything we can to make sure that you'll be rewarded for your efforts. To learn more visit the documentation site https://docs.fleek.network, thanks for your patience and understanding!`,
     );
@@ -83,6 +83,7 @@ const NodeWorkingCorrectlyQueries: OnMessageCreate = {
     msg.content.match(/.*(normal|standard|correct).*logs/gm)
   ),
   cb: (msg) => {
+    // TODO: use text tmplt instead
     msg.reply(
       `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
 
@@ -172,6 +173,7 @@ const GreentingQueries: OnMessageCreate = {
     });
 
     const { author: user, channel } = msg;
+    // TODO: use text tmplt instead
     const message = `${msg.author.toString()} for greetings use the channel <#${
       process.env.DISCORD_CHANNEL_ID_GM_GN
     }>`;
