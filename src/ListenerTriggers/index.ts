@@ -72,9 +72,34 @@ const RewardIncentivesQueries: OnMessageCreate = {
   },
 }
 
+const NodeWorkingCorrectlyQueries: OnMessageCreate = {
+  expr: (msg) => !!(
+    msg.content.match(/.*[iI]s.*(it|node).*working/gm) ||
+    msg.content.match(/.*[hH]ow.*if.*node.*working/gm) ||
+    msg.content.match(/.*[iI]s.*it.*working.*properly/gm) ||
+    msg.content.match(/.*logs.*([oO][kK]|good|normal)/gm) ||
+    msg.content.match(/.*(normal|standard|correct).*logs/gm)
+  ),
+  cb: (msg) => {
+    msg.reply(
+      `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
+
+To do a health check run the command in the server:
+
+\`\`\`
+curl -sS https://get.fleek.network/healthcheck | bash
+\`\`\`
+
+To learn more visit https://docs.fleek.network/docs/node/health-check
+      `,
+    );
+  },
+}
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
   RolesQueries,
   RewardIncentivesQueries,
+  NodeWorkingCorrectlyQueries,
 ]
