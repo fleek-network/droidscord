@@ -129,6 +129,24 @@ const AskForHelpQueries: OnMessageCreate = {
   },
 }
 
+const AskNextTesnetPhaseQueries: OnMessageCreate = {
+  expr: (msg) => !!(
+    msg.content.match(
+      /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
+    )
+  ),
+  cb: (msg) => {
+    // TODO: use text tmplt instead
+    msg.reply(
+      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
+      
+Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
+      
+Thanks for your patience and understanding!`,
+    );
+  },
+}
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
@@ -137,4 +155,5 @@ export const onMessageCreate: OnMessageCreate[] = [
   NodeWorkingCorrectlyQueries,
   WatchLogsQueries,
   AskForHelpQueries,
+  AskNextTesnetPhaseQueries,
 ]

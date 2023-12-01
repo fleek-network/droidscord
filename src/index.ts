@@ -207,30 +207,6 @@ client.on("messageCreate", async (msg) => {
   }
 
   if (
-    msg.content.match(
-      /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
-    )
-  ) {
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`,
-    );
-  }
-
-  if (
-    msg.content.match(
-      /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
-    )
-  ) {
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
-      
-Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
-      
-Thanks for your patience and understanding!`,
-    );
-  }
-
-  if (
     ["gm", "gn"].some((greeting) =>
       msg.content.toLowerCase().startsWith(greeting),
     )
