@@ -206,21 +206,6 @@ client.on("messageCreate", async (msg) => {
     return;
   }
 
-  if (msg.content.match(/([hH]ow|[wW]hat).*(check|view|watch).*logs/gm)) {
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
-
-To run a health check do:
-
-\`\`\`
-curl -sS https://get.fleek.network/healthcheck | bash
-\`\`\`
-
-To learn more visit https://docs.fleek.network/docs/node/health-check
-      `,
-    );
-  }
-
   if (
     msg.content.match(
       /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,

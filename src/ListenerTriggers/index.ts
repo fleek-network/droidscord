@@ -96,10 +96,30 @@ To learn more visit https://docs.fleek.network/docs/node/health-check
   },
 }
 
+const WatchLogsQueries: OnMessageCreate = {
+  expr: (msg) => !!(msg.content.match(/([hH]ow|[wW]hat).*(check|view|watch).*logs/gm)),
+  cb: (msg) => {
+    // TODO: use text tmplt instead
+    msg.reply(
+      `👀 Hey ${msg.author.toString()}, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
+
+To run a health check do:
+
+\`\`\`
+curl -sS https://get.fleek.network/healthcheck | bash
+\`\`\`
+
+To learn more visit https://docs.fleek.network/docs/node/health-check
+      `,
+    );
+  },
+}
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
   RolesQueries,
   RewardIncentivesQueries,
   NodeWorkingCorrectlyQueries,
+  WatchLogsQueries,
 ]
