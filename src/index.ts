@@ -12,7 +12,8 @@ import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
 import { onMessageCreate } from './ListenerTriggers/index.js';
-import { deleteMsg, sendMsgToUser, sendMsgToChannel, sendMsgFoundLLMAnswer } from './Utils/index.js';
+import { deleteMsg, sendMsgToUser, sendMsgToChannel, sendMsgCommonHandler } from './Utils/index.js';
+import { warningAssistedAI } from './Messages/index.js';
 
 dotenv.config();
 
@@ -188,7 +189,13 @@ client.on("messageCreate", async (msg) => {
     if (!urls.length) return;
 
     const answer = urls.join("\n");
-    msg.reply(`👋 Hey! Found the following results:\n\n ${answer}`);
+    const message = `👋 Hey! Found the following results:\n\n ${answer}`;
+
+    await sendMsgCommonHandler({
+      msg,
+      user: msg.author,
+      message,
+    });
   }
 
   if (msg.content.startsWith(`${PREFIX}ask`)) {
@@ -200,10 +207,12 @@ client.on("messageCreate", async (msg) => {
     });
 
     if (cacheQuery?.response) {
-      sendMsgFoundLLMAnswer({
+      const message = `👋 Hey ${user.toString()} ${cacheQuery.response}\n\n${warningAssistedAI}`;
+
+      await sendMsgCommonHandler({
         msg,
         user,
-        response: cacheQuery.response,
+        message,
       });
 
       return;
@@ -223,10 +232,12 @@ client.on("messageCreate", async (msg) => {
 
     job
       .on("succeeded", async (response) => {
-        sendMsgFoundLLMAnswer({
+        const message = `👋 Hey ${user.toString()} ${cacheQuery.response}\n\n${warningAssistedAI}`;
+
+        sendMsgCommonHandler({
           msg,
           user,
-          response,
+          message,
         });
 
         try {

@@ -6,7 +6,6 @@ import {
   GuildTextBasedChannel,
   TextChannel,
 } from "discord.js";
-import { warningAssistedAI } from '../Messages/index.js';
 
 export const deleteMsg = async ({ msg }: { msg: Message }) => {
   try {
@@ -61,17 +60,17 @@ export const sendMsgToChannel = async ({
 };
 
 // TODO: Refactor seems to be a known pattern as used elsewhere
-export const sendMsgFoundLLMAnswer = async ({
+export const sendMsgCommonHandler = async ({
   msg,
   user,
-  response,
+  message,
 }: {
   msg: Message;
   user: User;
-  response: string;
+  message: string;
 }) => {
   // TODO: use text templt instead
-  const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
+  // const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
   const hasSentMsg = await sendMsgToUser({
     user: msg.author,
     message,
