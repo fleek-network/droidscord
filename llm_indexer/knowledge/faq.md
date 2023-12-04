@@ -196,3 +196,7 @@ The Fleek Network Whitepaper is available in https://whitepaper.fleek.network
 # Where to find the Fleek Network roadmap?
 
 The Fleek Network Roadmap is available in https://docs.fleek.network/docs/roadmap
+
+# When is the next testnet phase?
+
+For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones blog post https://blog.fleek.network/post/fleek-network-updated-roadmap-milestones
