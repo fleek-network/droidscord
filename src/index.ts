@@ -137,6 +137,7 @@ client.on("messageCreate", async (msg) => {
   }
 
   // Traverse listener triggers
+  // TODO: make prefix cmds as constants and move to Utils
   const hasIgnoreCmd = [`${PREFIX}search`, `${PREFIX}ask`].find((term) =>
     msg.content.includes(term),
   );
