@@ -1,16 +1,11 @@
 import * as dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
-import { Client, IntentsBitField, User, TextChannel } from "discord.js";
+import { Client, IntentsBitField, User } from "discord.js";
 import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
-import {
-  sendMsgToUser,
-  sendMsgToChannel,
-  sendMsgCommonHandler,
-  sendCreateThreadMsg,
-} from "./Utils/index.js";
+import { sendMsgCommonHandler, sendCreateThreadMsg } from "./Utils/index.js";
 import { warningAssistedAI } from "./Messages/index.js";
 
 dotenv.config();
@@ -216,9 +211,13 @@ client.on("messageCreate", async (msg) => {
       return;
     }
 
-    msg.reply(
-      `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`,
-    );
+    const message = `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`;
+
+    const thread = await sendCreateThreadMsg({
+      msg,
+      name: query,
+      message,
+    });
 
     const job = await llmQueue
       .createJob({
@@ -232,11 +231,7 @@ client.on("messageCreate", async (msg) => {
       .on("succeeded", async (response) => {
         const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
 
-        await sendMsgCommonHandler({
-          msg,
-          user,
-          message,
-        });
+        await thread.send(message);
 
         try {
           const mquery = new MongoQuery({
