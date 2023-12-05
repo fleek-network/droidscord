@@ -124,10 +124,9 @@ const NodeWorkingCorrectlyQueries: OnMessageCreate = {
       msg.content.match(/.*logs.*([oO][kK]|good|normal)/gm) ||
       msg.content.match(/.*(normal|standard|correct).*logs/gm)
     ),
-  cb: (msg) => {
+  cb: async (msg) => {
     // TODO: use text tmplt instead
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
+    const message = `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
 
 To do a health check run the command in the server:
 
@@ -136,8 +135,13 @@ curl -sS https://get.fleek.network/healthcheck | bash
 \`\`\`
 
 To learn more visit https://docs.fleek.network/docs/node/health-check
-      `,
-    );
+      `;
+
+    await sendCreateThreadMsg({
+      msg,
+      name: "Health checkups",
+      message,
+    });
   },
 };
 
