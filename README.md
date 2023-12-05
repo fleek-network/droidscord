@@ -6,6 +6,14 @@
 
 Help us reach the members of our communities quicker and to reduce the amount of time we spend on some interactions that can be easily mitigated by checking the documentation site and search functionalities.
 
+## 👩‍⚖️Rule
+
+Service utilization should obey by the rule **"Help promote the service and share knowledge"**. The rule should not be broken.
+
+Thus, it's not ok to hide interactions or responses that can be useful for others to learn from, or and not exclusively, read or search for past interactions.
+
+Although, interaction and their responses can have a lifespan: short, medium or long. A user can delete any of their interactions, which is something the team cannot control. The moderators can also delete them. Thereafter, an interaction type should respect certain lifetimes.
+
 ## 🛹 Requirements
 
 - Nodejs
