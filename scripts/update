@@ -41,6 +41,11 @@ if ! docker compose exec -it redis bash -c 'redis-cli flushall'; then
   echo "⚠️   Warning: Failed to clear cache"
 fi
 
+echo "[INFO] Clear mongodb"
+if ! mongosh mongodb://localhost:27017/droidscord -u root -p root --authenticationDatabase admin --eval 'db.queries.remove({})'; then
+  echo "⚠️  Warning: Failed to clear mongo db"
+fi
+
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
   echo "⚠️  Warrning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
