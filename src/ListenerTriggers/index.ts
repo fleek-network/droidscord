@@ -2,7 +2,12 @@ import { Message, TextChannel } from "discord.js";
 import dayjs from "dayjs";
 import { whitelistNotRequired } from "../Messages/index.js";
 import assert from "assert";
-import { deleteMsg, sendMsgToUser, sendMsgToChannel } from "../Utils/index.js";
+import {
+  deleteMsg,
+  sendMsgToUser,
+  sendMsgToChannel,
+  sendCreateThreadMsg,
+} from "../Utils/index.js";
 
 assert(
   process.env.WHITELIST_MSG_TIMEOUT_MINUTES,
@@ -160,18 +165,22 @@ const AskNextTesnetPhaseQueries: OnMessageCreate = {
       msg.content.match(
         /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
       ) ||
-      msg.content.match(/.*[wW][hH]en.*[pP]hase.*[tT]est)/gm) ||
-      msg.content.match(/.*[wW][hH]en.*testnet/gm)
+      msg.content.match(/.*[wW][hH]?en.*[pP]hase.*[tT]est/gm) ||
+      msg.content.match(/.*[wW][hH]?en.*testnet/gm)
     ),
-  cb: (msg) => {
+  cb: async (msg) => {
     // TODO: use text tmplt instead
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
+    const message = `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
       
 Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
       
-Thanks for your patience and understanding!`,
-    );
+Thanks for your patience and understanding!`;
+
+    await sendCreateThreadMsg({
+      msg,
+      name: "About next testnet phase",
+      message,
+    });
   },
 };
 
