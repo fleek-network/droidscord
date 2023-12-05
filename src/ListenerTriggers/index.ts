@@ -69,7 +69,8 @@ const RolesQueries: OnMessageCreate = {
       ) ||
       msg.content.match(
         /.*([wW]hy|[wW]here|[lL]ook|[fF]ind|[cC]an).*(channels?|rooms?).*(close|disappear|delete|remove|vanish|gone|lost|missing|visible)/gm,
-      )
+      ) ||
+      msg.content.match(/.*[wW]here.*my.*roles?/gm)
     ),
   cb: (msg) => {
     // TODO: use text tmplt instead
