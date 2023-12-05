@@ -137,7 +137,12 @@ client.on("messageCreate", async (msg) => {
   }
 
   // Traverse listener triggers
-  onMessageCreate.forEach(({ expr, cb }) => expr(msg) && cb(msg));
+  const hasIgnoreCmd = [`${PREFIX}search`, `${PREFIX}ask`].find((term) =>
+    msg.content.includes(term),
+  );
+  onMessageCreate.forEach(
+    ({ expr, cb }) => !hasIgnoreCmd && expr(msg) && cb(msg),
+  );
 
   if (msg.content.startsWith(`${PREFIX}docs`)) {
     if (msg.content === `${PREFIX}docs`) {
