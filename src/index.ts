@@ -207,9 +207,9 @@ client.on("messageCreate", async (msg) => {
         cacheQuery.response
       }\n\n${warningAssistedAI}`;
 
-      await sendMsgCommonHandler({
+      await sendCreateThreadMsg({
         msg,
-        user,
+        name: query,
         message,
       });
 
