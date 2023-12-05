@@ -5,10 +5,12 @@ import axios from "axios";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
-import { sendMsgCommonHandler, sendCreateThreadMsg } from "./Utils/index.js";
+import { sendCreateThreadMsg } from "./Utils/index.js";
 import { warningAssistedAI } from "./Messages/index.js";
 
 dotenv.config();
+
+const PREFIX = "!";
 
 type Job = {
   data: {
@@ -40,6 +42,13 @@ enum Docs {
   Site = "https://docs.fleek.network",
 }
 
+enum Commands {
+  Ask = `${PREFIX}ask`,
+  Search = `${PREFIX}search`,
+  Docs = `${PREFIX}docs`,
+  Help = `${PREFIX}help`,
+}
+
 const sharedConfig = {
   isWorker: true,
   removeOnSuccess: true,
@@ -63,7 +72,6 @@ const whitelistChannelIds = (() => {
 
   return [...data];
 })();
-const PREFIX = "!";
 
 // Mongodb init
 (async () => {
@@ -138,15 +146,15 @@ client.on("messageCreate", async (msg) => {
 
   // Traverse listener triggers
   // TODO: make prefix cmds as constants and move to Utils
-  const hasIgnoreCmd = [`${PREFIX}search`, `${PREFIX}ask`].find((term) =>
+  const hasIgnoreCmd = [Commands.Search, Commands.Ask].find((term) =>
     msg.content.includes(term),
   );
   onMessageCreate.forEach(
     ({ expr, cb }) => !hasIgnoreCmd && expr(msg) && cb(msg),
   );
 
-  if (msg.content.startsWith(`${PREFIX}docs`)) {
-    if (msg.content === `${PREFIX}docs`) {
+  if (msg.content.startsWith(Commands.Docs)) {
+    if (msg.content === Commands.Docs) {
       msg.reply(`Visit the documentation site at ${Docs.Site}`);
 
       return;
@@ -196,9 +204,9 @@ client.on("messageCreate", async (msg) => {
     });
   }
 
-  if (msg.content.startsWith(`${PREFIX}ask`)) {
+  if (msg.content.startsWith(Commands.Ask)) {
     const user = msg.author;
-    let query = msg.content.split(`${PREFIX}ask`)[1];
+    let query = msg.content.split(Commands.Ask)[1];
     query = query.replace(/[\W_]+/g, " ").trim();
     const cacheQuery = await mongoose.model("Query").findOne({
       query,
@@ -259,7 +267,7 @@ client.on("messageCreate", async (msg) => {
       });
   }
 
-  if (msg.content.startsWith(`${PREFIX}help`)) {
+  if (msg.content.startsWith(Commands.Help)) {
     // TODO: use text tmplt instead
     // Warning: the text literal lack of indentation has a purpose, do not change
     const message = `👀 Hey ${msg.author.toString()}!
