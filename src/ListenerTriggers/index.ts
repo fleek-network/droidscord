@@ -55,11 +55,15 @@ const whitelistQueries: OnMessageCreate = {
 const installSetupQueries: OnMessageCreate = {
   expr: (msg) =>
     !!msg.content.match(/.*([hH]ow|[cC]an).*(install|setup).*node/gm),
-  cb: (msg) => {
-    msg.reply(
-      // TODO: refactor/use a text message template instead
-      `👀 Hey ${msg.author.toString()}, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`,
-    );
+  cb: async (msg) => {
+    // TODO: refactor/use a text message template instead
+    const message = `👀 Hey ${msg.author.toString()}, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`;
+
+    await sendCreateThreadMsg({
+      msg,
+      name: "Node setup",
+      message,
+    });
   },
 };
 
