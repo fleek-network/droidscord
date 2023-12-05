@@ -9,6 +9,7 @@ import {
   sendMsgToUser,
   sendMsgToChannel,
   sendMsgCommonHandler,
+  sendCreateThreadMsg,
 } from "./Utils/index.js";
 import { warningAssistedAI } from "./Messages/index.js";
 
@@ -290,19 +291,11 @@ client.on("messageCreate", async (msg) => {
 curl https://get.fleek.network | bash
 \`\`\``;
 
-    const hasSentMsg = await sendMsgToUser({
-      user: msg.author,
+    await sendCreateThreadMsg({
+      msg,
+      name: "help",
       message,
-      channel: msg.channel as TextChannel,
     });
-
-    if (!hasSentMsg) {
-      await sendMsgToChannel({
-        channel: msg.channel as TextChannel,
-        // TODO: use text templt instead
-        message: `👀 Hey ${msg.author.toString()}, failed to DM you. Activate your DM and try again, please!`,
-      });
-    }
   }
 });
 

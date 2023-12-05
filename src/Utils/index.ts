@@ -85,3 +85,22 @@ export const sendMsgCommonHandler = async ({
     });
   }
 };
+
+export const sendCreateThreadMsg = async ({
+  msg,
+  name,
+  message,
+}: {
+  msg: Message;
+  name: string;
+  message: string;
+}) => {
+  const thread = await msg.startThread({
+    name,
+    autoArchiveDuration: 1440, // A day is 1440, see https://discord-api-types.dev/api/discord-api-types-v10/enum/ThreadAutoArchiveDuration
+  });
+
+  await thread.send(message);
+
+  return thread;
+};
