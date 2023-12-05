@@ -199,4 +199,6 @@ The Fleek Network Roadmap is available in https://docs.fleek.network/docs/roadma
 
 # When is the next testnet phase?
 
+The next testnet phase is coming out soon, as described in our Fleek Network Road to Mainnet blog post.
+
 For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones blog post https://blog.fleek.network/post/fleek-network-updated-roadmap-milestones
