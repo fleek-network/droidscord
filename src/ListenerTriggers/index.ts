@@ -151,11 +151,15 @@ const AskForHelpQueries: OnMessageCreate = {
     !!msg.content.match(
       /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
     ),
-  cb: (msg) => {
+  cb: async (msg) => {
     // TODO: use text tmplt instead
-    msg.reply(
-      `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`,
-    );
+    const message = `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`;
+
+    await sendCreateThreadMsg({
+      msg,
+      name: "Looking for help",
+      message,
+    });
   },
 };
 
