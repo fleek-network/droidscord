@@ -4,7 +4,6 @@ import { whitelistNotRequired } from "../Messages/index.js";
 import assert from "assert";
 import {
   deleteMsg,
-  sendMsgToUser,
   sendMsgToChannel,
   sendCreateThreadMsg,
 } from "../Utils/index.js";
@@ -32,7 +31,7 @@ const whitelistQueries: OnMessageCreate = {
   expr: (msg) =>
     !!msg.content.includes("whitelist") ||
     !!msg.content.match(/.*(form|application|apply|join).*(test|testnet)/gm),
-  cb: (msg) => {
+  cb: async (msg) => {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
 
@@ -42,7 +41,11 @@ const whitelistQueries: OnMessageCreate = {
         parseFloat(process.env.WHITELIST_MSG_TIMEOUT_MINUTES as string)
     ) {
       // TODO: use text tmplt instead
-      msg.reply(whitelistNotRequired);
+      await sendCreateThreadMsg({
+        msg,
+        name: "About whitelisting",
+        message: whitelistNotRequired,
+      });
       lastWhiteListMsg = currentWhiteListMsg;
       whiteListMsgCount += 1;
     }
