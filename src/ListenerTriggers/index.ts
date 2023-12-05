@@ -156,8 +156,12 @@ const AskForHelpQueries: OnMessageCreate = {
 
 const AskNextTesnetPhaseQueries: OnMessageCreate = {
   expr: (msg) =>
-    !!msg.content.match(
-      /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
+    !!(
+      msg.content.match(
+        /.*([wW]h?en|[wW]here|[wW]hat).*(next|test).*(phase|testnet)/gm,
+      ) ||
+      msg.content.match(/.*[wW][hH]en.*[pP]hase.*[tT]est)/gm) ||
+      msg.content.match(/.*[wW][hH]en.*testnet/gm)
     ),
   cb: (msg) => {
     // TODO: use text tmplt instead
