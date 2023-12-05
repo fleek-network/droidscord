@@ -293,7 +293,7 @@ curl https://get.fleek.network | bash
 
     await sendCreateThreadMsg({
       msg,
-      name: "help",
+      name: `Help for ${msg.author.toString()}`,
       message,
     });
   }
