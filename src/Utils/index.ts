@@ -90,14 +90,16 @@ export const sendCreateThreadMsg = async ({
   msg,
   name,
   message,
+  duration = 1440,
 }: {
   msg: Message;
   name: string;
   message: string;
+  duration?: number;
 }) => {
   const thread = await msg.startThread({
     name,
-    autoArchiveDuration: 1440, // A day is 1440, see https://discord-api-types.dev/api/discord-api-types-v10/enum/ThreadAutoArchiveDuration
+    autoArchiveDuration: duration, // A day is 1440, see https://discord-api-types.dev/api/discord-api-types-v10/enum/ThreadAutoArchiveDuration
   });
 
   await thread.send(message);

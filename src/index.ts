@@ -192,6 +192,7 @@ client.on("messageCreate", async (msg) => {
       msg,
       name: `Search for "${query}"`,
       message,
+      duration: 120, // 120 is two hours
     });
   }
 
@@ -212,6 +213,7 @@ client.on("messageCreate", async (msg) => {
         msg,
         name: query,
         message,
+        duration: 60, // 60 is an hour
       });
 
       return;
@@ -296,6 +298,7 @@ curl https://get.fleek.network | bash
       msg,
       name: "Looking for help?",
       message,
+      duration: 60, // 60 is an hour
     });
   }
 });
