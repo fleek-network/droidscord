@@ -36,6 +36,11 @@ if ! npm run build; then
   exit 1
 fi
 
+echo "[INFO] Clear cache"
+if ! docker compose exec -it redis bash -c 'redis-cli flushall'; then
+  echo "⚠️   Warning: Failed to clear cache"
+fi
+
 if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer running' || ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'discordjs-bot'; then
   echo "⚠️  Warrning: Docker compose stack is down"
   echo "🤖 Should start compose stack, be patient..."
@@ -46,7 +51,6 @@ if ! docker compose ps --format "{{.Service}} {{.State}}" | grep 'llm_indexer ru
     exit 1
   fi
 fi
-
 
 if ! docker compose restart; then
   echo "👹 Oops! Failed to restart docker compose"
