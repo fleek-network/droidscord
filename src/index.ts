@@ -188,9 +188,9 @@ client.on("messageCreate", async (msg) => {
     const answer = urls.join("\n");
     const message = `👋 Hey! Found the following results:\n\n ${answer}`;
 
-    await sendMsgCommonHandler({
+    await sendCreateThreadMsg({
       msg,
-      user: msg.author,
+      name: `Search for "${query}"`,
       message,
     });
   }
