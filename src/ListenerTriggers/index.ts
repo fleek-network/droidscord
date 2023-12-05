@@ -66,12 +66,15 @@ const RolesQueries: OnMessageCreate = {
       msg.content.match(/.*([nN]o).*node.*role/gm) ||
       msg.content.match(
         /.*[wW][hH]ere.*(can|find|is|channel|with|look|are).*roles?/gm,
+      ) ||
+      msg.content.match(
+        /.*([wW]hy|[wW]here|[lL]ook|[fF]ind|[cC]an).*(channels?|rooms?).*(close|disappear|delete|remove|vanish|gone|lost|missing|visible)/gm,
       )
     ),
   cb: (msg) => {
     // TODO: use text tmplt instead
     msg.reply(
-      `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles.`,
+      `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles. Roles open access to channels you might be interested in, so make sure to pick the correct roles.`,
     );
   },
 };
