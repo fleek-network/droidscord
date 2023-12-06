@@ -2,22 +2,22 @@ import * as dotenv from "dotenv";
 // import algoliasearch from "algoliasearch";
 import { Client, IntentsBitField, User } from "discord.js";
 import axios from "axios";
-import Queue from "bee-queue";
-import mongoose from "mongoose";
+// import Queue from "bee-queue";
+// import mongoose from "mongoose";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
 import { sendCreateThreadMsg } from "./Utils/index.js";
-import { warningAssistedAI } from "./Messages/index.js";
+// import { warningAssistedAI } from "./Messages/index.js";
 import { Commands } from "./Commands/index.js";
 
 dotenv.config();
 
-type Job = {
-  data: {
-    query: string;
-    channelId: string;
-    user: User;
-  };
-};
+// type Job = {
+//   data: {
+//     query: string;
+//     channelId: string;
+//     user: User;
+//   };
+// };
 
 // type AlgoliaHitHierarchy = {
 //   lvl0: string | null;
@@ -37,63 +37,63 @@ type Job = {
 //   url: string;
 // };
 
-const sharedConfig = {
-  isWorker: true,
-  removeOnSuccess: true,
-  redis: {
-    host: process.env.REDIS_HOSTNAME,
-  },
-};
-const llmQueue = new Queue("LLM_QUERY", sharedConfig);
+// const sharedConfig = {
+//   isWorker: true,
+//   removeOnSuccess: true,
+//   redis: {
+//     host: process.env.REDIS_HOSTNAME,
+//   },
+// };
+// const llmQueue = new Queue("LLM_QUERY", sharedConfig);
 
-// Const
-const whitelistChannelIds = (() => {
-  if (!process.env.WHITELIST_CHANNEL_IDS) {
-    throw new Error("Oops! The WHITELIST_CHANNEL_IDS env var is not set");
-  }
+// // Const
+// const whitelistChannelIds = (() => {
+//   if (!process.env.WHITELIST_CHANNEL_IDS) {
+//     throw new Error("Oops! The WHITELIST_CHANNEL_IDS env var is not set");
+//   }
 
-  const data = process.env.WHITELIST_CHANNEL_IDS.split(",");
+//   const data = process.env.WHITELIST_CHANNEL_IDS.split(",");
 
-  if (!data.length) {
-    throw new Error("Oops! Empty WHITELIST_CHANNEL_IDS env var");
-  }
+//   if (!data.length) {
+//     throw new Error("Oops! Empty WHITELIST_CHANNEL_IDS env var");
+//   }
 
-  return [...data];
-})();
+//   return [...data];
+// })();
 
-// Mongodb init
-(async () => {
-  try {
-    const {
-      MONGO_INITDB_ROOT_USERNAME,
-      MONGO_INITDB_ROOT_PASSWORD,
-      MONGO_DB_NAME,
-    } = process.env;
+// // Mongodb init
+// (async () => {
+//   try {
+//     const {
+//       MONGO_INITDB_ROOT_USERNAME,
+//       MONGO_INITDB_ROOT_PASSWORD,
+//       MONGO_DB_NAME,
+//     } = process.env;
 
-    if (
-      !MONGO_INITDB_ROOT_USERNAME ||
-      !MONGO_INITDB_ROOT_PASSWORD ||
-      !MONGO_DB_NAME
-    )
-      throw Error("Oops! Missing one or more mongo env vars");
+//     if (
+//       !MONGO_INITDB_ROOT_USERNAME ||
+//       !MONGO_INITDB_ROOT_PASSWORD ||
+//       !MONGO_DB_NAME
+//     )
+//       throw Error("Oops! Missing one or more mongo env vars");
 
-    await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
-      authSource: "admin",
-      user: MONGO_INITDB_ROOT_USERNAME,
-      pass: MONGO_INITDB_ROOT_PASSWORD,
-    });
-  } catch (err) {
-    console.error(err);
+//     await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
+//       authSource: "admin",
+//       user: MONGO_INITDB_ROOT_USERNAME,
+//       pass: MONGO_INITDB_ROOT_PASSWORD,
+//     });
+//   } catch (err) {
+//     console.error(err);
 
-    throw new Error("Oops! Failed to connect to mongo");
-  }
-})();
+//     throw new Error("Oops! Failed to connect to mongo");
+//   }
+// })();
 
-const mongoQuerySchema = new mongoose.Schema({
-  query: String,
-  response: String,
-});
-const MongoQuery = mongoose.model("Query", mongoQuerySchema);
+// const mongoQuerySchema = new mongoose.Schema({
+//   query: String,
+//   response: String,
+// });
+// const MongoQuery = mongoose.model("Query", mongoQuerySchema);
 
 const client = new Client({
   intents: [
@@ -192,68 +192,68 @@ client.on("messageCreate", async (msg) => {
   //   });
   // }
 
-  if (msg.content.startsWith(Commands.Ask)) {
-    const user = msg.author;
-    let query = msg.content.split(Commands.Ask)[1];
-    query = query.replace(/[\W_]+/g, " ").trim();
-    const cacheQuery = await mongoose.model("Query").findOne({
-      query,
-    });
+  // if (msg.content.startsWith(Commands.Ask)) {
+  //   const user = msg.author;
+  //   let query = msg.content.split(Commands.Ask)[1];
+  //   query = query.replace(/[\W_]+/g, " ").trim();
+  //   const cacheQuery = await mongoose.model("Query").findOne({
+  //     query,
+  //   });
 
-    if (cacheQuery?.response) {
-      const message = `👋 Hey ${user.toString()} ${
-        cacheQuery.response
-      }\n\n${warningAssistedAI}`;
+  //   if (cacheQuery?.response) {
+  //     const message = `👋 Hey ${user.toString()} ${
+  //       cacheQuery.response
+  //     }\n\n${warningAssistedAI}`;
 
-      await sendCreateThreadMsg({
-        msg,
-        name: query,
-        message,
-        duration: 60, // 60 is an hour
-      });
+  //     await sendCreateThreadMsg({
+  //       msg,
+  //       name: query,
+  //       message,
+  //       duration: 60, // 60 is an hour
+  //     });
 
-      return;
-    }
+  //     return;
+  //   }
 
-    const message = `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`;
+  //   const message = `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`;
 
-    const thread = await sendCreateThreadMsg({
-      msg,
-      name: query,
-      message,
-    });
+  //   const thread = await sendCreateThreadMsg({
+  //     msg,
+  //     name: query,
+  //     message,
+  //   });
 
-    const job = await llmQueue
-      .createJob({
-        channelId,
-        query,
-        user,
-      })
-      .save();
+  //   const job = await llmQueue
+  //     .createJob({
+  //       channelId,
+  //       query,
+  //       user,
+  //     })
+  //     .save();
 
-    job
-      .on("succeeded", async (response) => {
-        const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
+  //   job
+  //     .on("succeeded", async (response) => {
+  //       const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
 
-        await thread.send(message);
+  //       await thread.send(message);
 
-        try {
-          const mquery = new MongoQuery({
-            query,
-            response,
-          });
-          await mquery.save();
-        } catch (err) {
-          console.error("Oops! Failed to save query");
-        }
-      })
-      .on("progress", () => {
-        console.log("Job progress");
-      })
-      .on("failed", () => {
-        console.log("Job failed");
-      });
-  }
+  //       try {
+  //         const mquery = new MongoQuery({
+  //           query,
+  //           response,
+  //         });
+  //         await mquery.save();
+  //       } catch (err) {
+  //         console.error("Oops! Failed to save query");
+  //       }
+  //     })
+  //     .on("progress", () => {
+  //       console.log("Job progress");
+  //     })
+  //     .on("failed", () => {
+  //       console.log("Job failed");
+  //     });
+  // }
 
   if (msg.content.startsWith(Commands.Help)) {
     // TODO: use text tmplt instead
