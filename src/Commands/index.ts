@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
-import { Docs } from "../Utils/index.js";
+import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
+import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
 
 const PREFIX = "!";
 
@@ -16,7 +17,7 @@ interface CommandTrigger {
 }
 
 const CommandDocsTrigger: CommandTrigger = {
-  expr: (msg) => !!msg.content.startsWith(Commands.Docs),
+  expr: (msg) => msg.content.startsWith(Commands.Docs),
   cb: (msg) => {
     if (msg.content === Commands.Docs) {
       msg.reply(`Visit the documentation site at ${Docs.Site}`);
@@ -43,4 +44,39 @@ const CommandDocsTrigger: CommandTrigger = {
   },
 };
 
-export const CommandTriggerLs: CommandTrigger[] = [CommandDocsTrigger];
+const CommandSearchTrigger: CommandTrigger = {
+  // TODO: replace ${PREFIX}cmd with enum version
+  expr: (msg) => msg.content.startsWith(`${PREFIX}search`),
+  cb: async (msg) => {
+    const query = msg.content.split(`${PREFIX}search`)[1];
+
+    if (!query) return;
+
+    const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
+
+    const urls = hits
+      .map((data) => {
+        if (data.url === undefined) return;
+
+        return data?.url && `<${data.url}>`;
+      })
+      .filter((url) => url && !url.includes("/tags"));
+
+    if (!urls.length) return;
+
+    const answer = urls.join("\n");
+    const message = `👋 Hey! Found the following results:\n\n ${answer}`;
+
+    await sendCreateThreadMsg({
+      msg,
+      name: `Search for "${query}"`,
+      message,
+      duration: 120, // 120 is two hours
+    });
+  },
+};
+
+export const CommandTriggerLs: CommandTrigger[] = [
+  CommandDocsTrigger,
+  CommandSearchTrigger,
+];

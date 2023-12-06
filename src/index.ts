@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import algoliasearch from "algoliasearch";
+// import algoliasearch from "algoliasearch";
 import { Client, IntentsBitField, User } from "discord.js";
 import axios from "axios";
 import Queue from "bee-queue";
@@ -8,7 +8,6 @@ import { onMessageCreate } from "./ListenerTriggers/index.js";
 import { sendCreateThreadMsg } from "./Utils/index.js";
 import { warningAssistedAI } from "./Messages/index.js";
 import { Commands } from "./Commands/index.js";
-import { Docs } from "./Utils/index.js";
 
 dotenv.config();
 
@@ -20,23 +19,23 @@ type Job = {
   };
 };
 
-type AlgoliaHitHierarchy = {
-  lvl0: string | null;
-  lvl1: string | null;
-  lvl2: string | null;
-  lvl3: string | null;
-  lvl4: string | null;
-  lvl5: string | null;
-  lvl6: string | null;
-};
+// type AlgoliaHitHierarchy = {
+//   lvl0: string | null;
+//   lvl1: string | null;
+//   lvl2: string | null;
+//   lvl3: string | null;
+//   lvl4: string | null;
+//   lvl5: string | null;
+//   lvl6: string | null;
+// };
 
-type AlgoliaHit = {
-  anchor: string;
-  content: string | null;
-  hierarchy: AlgoliaHitHierarchy;
-  objectID: string;
-  url: string;
-};
+// type AlgoliaHit = {
+//   anchor: string;
+//   content: string | null;
+//   hierarchy: AlgoliaHitHierarchy;
+//   objectID: string;
+//   url: string;
+// };
 
 const sharedConfig = {
   isWorker: true,
@@ -106,14 +105,14 @@ const client = new Client({
   ],
 });
 
-const algoliaClient = algoliasearch(
-  process.env.ALGOLIA_APP_ID as string,
-  process.env.ALGOLIA_SEARCH_API as string,
-);
+// const algoliaClient = algoliasearch(
+//   process.env.ALGOLIA_APP_ID as string,
+//   process.env.ALGOLIA_SEARCH_API as string,
+// );
 
-const algoliaIndex = algoliaClient.initIndex(
-  process.env.ALGOLIA_INDEX as string,
-);
+// const algoliaIndex = algoliaClient.initIndex(
+//   process.env.ALGOLIA_INDEX as string,
+// );
 
 client.on("ready", () => {
   if (client.user) {
@@ -165,33 +164,33 @@ client.on("messageCreate", async (msg) => {
   //   }
   // }
 
-  if (msg.content.startsWith(`${PREFIX}search`)) {
-    const query = msg.content.split(`${PREFIX}search`)[1];
+  // if (msg.content.startsWith(`${PREFIX}search`)) {
+  //   const query = msg.content.split(`${PREFIX}search`)[1];
 
-    if (!query) return;
+  //   if (!query) return;
 
-    const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
+  //   const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
 
-    const urls = hits
-      .map((data) => {
-        if (data.url === undefined) return;
+  //   const urls = hits
+  //     .map((data) => {
+  //       if (data.url === undefined) return;
 
-        return data?.url && `<${data.url}>`;
-      })
-      .filter((url) => url && !url.includes("/tags"));
+  //       return data?.url && `<${data.url}>`;
+  //     })
+  //     .filter((url) => url && !url.includes("/tags"));
 
-    if (!urls.length) return;
+  //   if (!urls.length) return;
 
-    const answer = urls.join("\n");
-    const message = `👋 Hey! Found the following results:\n\n ${answer}`;
+  //   const answer = urls.join("\n");
+  //   const message = `👋 Hey! Found the following results:\n\n ${answer}`;
 
-    await sendCreateThreadMsg({
-      msg,
-      name: `Search for "${query}"`,
-      message,
-      duration: 120, // 120 is two hours
-    });
-  }
+  //   await sendCreateThreadMsg({
+  //     msg,
+  //     name: `Search for "${query}"`,
+  //     message,
+  //     duration: 120, // 120 is two hours
+  //   });
+  // }
 
   if (msg.content.startsWith(Commands.Ask)) {
     const user = msg.author;
