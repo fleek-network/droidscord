@@ -7,10 +7,10 @@ import mongoose from "mongoose";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
 import { sendCreateThreadMsg } from "./Utils/index.js";
 import { warningAssistedAI } from "./Messages/index.js";
+import { Commands } from "./Commands/index.js";
+import { Docs } from "./Utils/index.js";
 
 dotenv.config();
-
-const PREFIX = "!";
 
 type Job = {
   data: {
@@ -37,17 +37,6 @@ type AlgoliaHit = {
   objectID: string;
   url: string;
 };
-
-enum Docs {
-  Site = "https://docs.fleek.network",
-}
-
-enum Commands {
-  Ask = `${PREFIX}ask`,
-  Search = `${PREFIX}search`,
-  Docs = `${PREFIX}docs`,
-  Help = `${PREFIX}help`,
-}
 
 const sharedConfig = {
   isWorker: true,
@@ -153,28 +142,28 @@ client.on("messageCreate", async (msg) => {
     ({ expr, cb }) => !hasIgnoreCmd && expr(msg) && cb(msg),
   );
 
-  if (msg.content.startsWith(Commands.Docs)) {
-    if (msg.content === Commands.Docs) {
-      msg.reply(`Visit the documentation site at ${Docs.Site}`);
+  // if (msg.content.startsWith(Commands.Docs)) {
+  //   if (msg.content === Commands.Docs) {
+  //     msg.reply(`Visit the documentation site at ${Docs.Site}`);
 
-      return;
-    }
+  //     return;
+  //   }
 
-    const re = /^!docs\s(<@\d+>)$/g;
-    const match = msg.content.matchAll(re);
+  //   const re = /^!docs\s(<@\d+>)$/g;
+  //   const match = msg.content.matchAll(re);
 
-    if (match) {
-      try {
-        const user = [...match][0][1];
+  //   if (match) {
+  //     try {
+  //       const user = [...match][0][1];
 
-        msg.reply(
-          `👋 Hey ${user}, visit the documentation site at ${Docs.Site}`,
-        );
-      } catch (err) {
-        console.error(`Oops! Failed to send docs site url to user`);
-      }
-    }
-  }
+  //       msg.reply(
+  //         `👋 Hey ${user}, visit the documentation site at ${Docs.Site}`,
+  //       );
+  //     } catch (err) {
+  //       console.error(`Oops! Failed to send docs site url to user`);
+  //     }
+  //   }
+  // }
 
   if (msg.content.startsWith(`${PREFIX}search`)) {
     const query = msg.content.split(`${PREFIX}search`)[1];

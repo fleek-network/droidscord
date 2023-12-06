@@ -7,6 +7,10 @@ import {
   TextChannel,
 } from "discord.js";
 
+export enum Docs {
+  Site = "https://docs.fleek.network",
+}
+
 export const deleteMsg = async ({ msg }: { msg: Message }) => {
   try {
     await msg?.delete();
