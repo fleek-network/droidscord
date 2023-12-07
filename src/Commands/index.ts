@@ -1,7 +1,8 @@
 import { Message, ThreadAutoArchiveDuration } from "discord.js";
 import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
-import { warningAssistedAI } from "../Messages/index.js";
+import { textTemplt } from "../Utils/text.js";
+import { warningAssistedAI, infoHowGetHelp } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
 const PREFIX = "!";
@@ -162,39 +163,15 @@ const CommandAskTrigger: CommandTrigger = {
 export const CommandHelpTrigger: CommandTrigger = {
   expr: (msg) => !!msg.content.startsWith(Commands.Help),
   cb: async (msg) => {
-    // TODO: use text tmplt instead
-    // Warning: the text literal lack of indentation has a purpose, do not change
-    const message = `👀 Hey ${msg.author.toString()}!
-
-\r\n**How to Get Help**
-- Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
-- Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
-
-**Help Us to Help You**
-- Imagine you are the one trying to help. Ask the question in a way that you would want to read!
-- Try to find the answer in the documentation site, e.g. use the search option
-- Read the responses you are given.
-- Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
-
-**No Answer?**
-- Do not mention uninvolved people to get a response.
-- Try to give more context / improve your description.
-- Try to find a solution yourself while waiting
-- Try to rephrase your question.
-
-**Chat commands**
-- !search <query> e.g. !search how to install
-- !ask <query> e.g. !ask how to do a healthcheck
-
-👆 The commands only work in the Fleek Network channels
-
-**To learn more visit:**
-<https://docs.fleek.network>
-
-**For Node Operator options tools run:**
-\`\`\`
-curl https://get.fleek.network | bash
-\`\`\``;
+    const message = textTemplt({
+      tmplt: infoHowGetHelp,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
