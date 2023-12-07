@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import { Client, IntentsBitField, User } from "discord.js";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
+import { onCommandMsg } from "./Commands/index.js";
 import { sendCreateThreadMsg } from "./Utils/index.js";
 import { Commands } from "./Commands/index.js";
 
@@ -43,6 +44,8 @@ client.on("messageCreate", async (msg) => {
   onMessageCreate.forEach(
     ({ expr, cb }) => !hasIgnoreCmd && expr(msg) && cb(msg),
   );
+
+  onCommandMsg.forEach(({ expr, cb }) => expr(msg) && cb(msg));
 });
 
 client.login(process.env.DISCORD_BOT_TOKEN);

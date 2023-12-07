@@ -240,7 +240,7 @@ curl https://get.fleek.network | bash
   },
 };
 
-export const CommandTriggerLs: CommandTrigger[] = [
+export const onCommandMsg: CommandTrigger[] = [
   CommandDocsTrigger,
   CommandSearchTrigger,
   CommandAskTrigger,
