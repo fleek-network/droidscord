@@ -1,9 +1,8 @@
 import { Message, ThreadAutoArchiveDuration } from "discord.js";
 import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
-import mongoose from "mongoose";
 import { warningAssistedAI } from "../Messages/index.js";
-import { llmQueue } from "../LLM/index.js";
+import { llmQueue, MongoQuery } from "../LLM/index.js";
 
 const PREFIX = "!";
 
@@ -29,39 +28,39 @@ export const whitelistChannelIds = (() => {
   return [...data];
 })();
 
-// Mongodb init
-(async () => {
-  try {
-    const {
-      MONGO_INITDB_ROOT_USERNAME,
-      MONGO_INITDB_ROOT_PASSWORD,
-      MONGO_DB_NAME,
-    } = process.env;
+// // Mongodb init
+// (async () => {
+//   try {
+//     const {
+//       MONGO_INITDB_ROOT_USERNAME,
+//       MONGO_INITDB_ROOT_PASSWORD,
+//       MONGO_DB_NAME,
+//     } = process.env;
 
-    if (
-      !MONGO_INITDB_ROOT_USERNAME ||
-      !MONGO_INITDB_ROOT_PASSWORD ||
-      !MONGO_DB_NAME
-    )
-      throw Error("Oops! Missing one or more mongo env vars");
+//     if (
+//       !MONGO_INITDB_ROOT_USERNAME ||
+//       !MONGO_INITDB_ROOT_PASSWORD ||
+//       !MONGO_DB_NAME
+//     )
+//       throw Error("Oops! Missing one or more mongo env vars");
 
-    await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
-      authSource: "admin",
-      user: MONGO_INITDB_ROOT_USERNAME,
-      pass: MONGO_INITDB_ROOT_PASSWORD,
-    });
-  } catch (err) {
-    console.error(err);
+//     await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
+//       authSource: "admin",
+//       user: MONGO_INITDB_ROOT_USERNAME,
+//       pass: MONGO_INITDB_ROOT_PASSWORD,
+//     });
+//   } catch (err) {
+//     console.error(err);
 
-    throw new Error("Oops! Failed to connect to mongo");
-  }
-})();
+//     throw new Error("Oops! Failed to connect to mongo");
+//   }
+// })();
 
-const mongoQuerySchema = new mongoose.Schema({
-  query: String,
-  response: String,
-});
-const MongoQuery = mongoose.model("Query", mongoQuerySchema);
+// const mongoQuerySchema = new mongoose.Schema({
+//   query: String,
+//   response: String,
+// });
+// const MongoQuery = mongoose.model("Query", mongoQuerySchema);
 
 interface CommandTrigger {
   expr: (msg: Message) => boolean;
@@ -134,7 +133,7 @@ const CommandAskTrigger: CommandTrigger = {
     const user = msg.author;
     let query = msg.content.split(Commands.Ask)[1];
     query = query.replace(/[\W_]+/g, " ").trim();
-    const cacheQuery = await mongoose.model("Query").findOne({
+    const cacheQuery = await MongoQuery.findOne({
       query,
     });
 
