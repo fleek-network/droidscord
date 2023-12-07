@@ -65,7 +65,6 @@ export const sendMsgToChannel = async ({
 // TODO: Refactor seems to be a known pattern as used elsewhere
 export const sendMsgCommonHandler = async ({
   msg,
-  user,
   message,
 }: {
   msg: Message;
@@ -93,7 +92,7 @@ export const sendCreateThreadMsg = async ({
   msg,
   name,
   message,
-  duration = 1440,
+  duration = ThreadAutoArchiveDuration.OneWeek,
 }: {
   msg: Message;
   name: string;

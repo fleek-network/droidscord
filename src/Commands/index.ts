@@ -28,40 +28,6 @@ export const whitelistChannelIds = (() => {
   return [...data];
 })();
 
-// // Mongodb init
-// (async () => {
-//   try {
-//     const {
-//       MONGO_INITDB_ROOT_USERNAME,
-//       MONGO_INITDB_ROOT_PASSWORD,
-//       MONGO_DB_NAME,
-//     } = process.env;
-
-//     if (
-//       !MONGO_INITDB_ROOT_USERNAME ||
-//       !MONGO_INITDB_ROOT_PASSWORD ||
-//       !MONGO_DB_NAME
-//     )
-//       throw Error("Oops! Missing one or more mongo env vars");
-
-//     await mongoose.connect(`mongodb://mongodb:27017/${MONGO_DB_NAME}`, {
-//       authSource: "admin",
-//       user: MONGO_INITDB_ROOT_USERNAME,
-//       pass: MONGO_INITDB_ROOT_PASSWORD,
-//     });
-//   } catch (err) {
-//     console.error(err);
-
-//     throw new Error("Oops! Failed to connect to mongo");
-//   }
-// })();
-
-// const mongoQuerySchema = new mongoose.Schema({
-//   query: String,
-//   response: String,
-// });
-// const MongoQuery = mongoose.model("Query", mongoQuerySchema);
-
 interface CommandTrigger {
   expr: (msg: Message) => boolean;
   cb: (msg: Message) => void;
@@ -122,7 +88,7 @@ const CommandSearchTrigger: CommandTrigger = {
       msg,
       name: `Search for "${query}"`,
       message,
-      duration: ThreadAutoArchiveDuration.OneHour, // 120 is two hours
+      duration: ThreadAutoArchiveDuration.OneHour,
     });
   },
 };
@@ -146,7 +112,7 @@ const CommandAskTrigger: CommandTrigger = {
         msg,
         name: query,
         message,
-        duration: ThreadAutoArchiveDuration.OneWeek, // 60 is an hour
+        duration: ThreadAutoArchiveDuration.OneWeek,
       });
 
       return;
@@ -234,7 +200,7 @@ curl https://get.fleek.network | bash
       msg,
       name: "Looking for help?",
       message,
-      duration: 60, // 60 is an hour
+      duration: ThreadAutoArchiveDuration.OneDay,
     });
   },
 };
