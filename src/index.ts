@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 // import algoliasearch from "algoliasearch";
 import { Client, IntentsBitField, User } from "discord.js";
-import axios from "axios";
+// import axios from "axios";
 // import Queue from "bee-queue";
 // import mongoose from "mongoose";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
@@ -299,18 +299,18 @@ client.on("messageCreate", async (msg) => {
   //   }
 });
 
-llmQueue.process(async (job: Job) => {
-  const { query } = job.data;
+// llmQueue.process(async (job: Job) => {
+//   const { query } = job.data;
 
-  try {
-    const res = await axios.get(
-      `http://${process.env.LLM_INDEXER_HOSTNAME}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
-    );
+//   try {
+//     const res = await axios.get(
+//       `http://${process.env.LLM_INDEXER_HOSTNAME}:${process.env.LLM_INDEXER_PORT}/query?question=${query}`,
+//     );
 
-    return res.data.answer as string;
-  } catch (err) {
-    console.error(err);
-  }
-});
+//     return res.data.answer as string;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
 
 client.login(process.env.DISCORD_BOT_TOKEN);
