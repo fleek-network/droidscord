@@ -102,8 +102,6 @@ const CommandSearchTrigger: CommandTrigger = {
   cb: async (msg) => {
     const query = msg.content.split(`${PREFIX}search`)[1];
 
-    console.log("[debug] query -> ", query);
-
     if (!query) return;
 
     const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
