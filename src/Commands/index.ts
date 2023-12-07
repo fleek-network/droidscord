@@ -1,19 +1,11 @@
 import { Message } from "discord.js";
 import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
-// import Queue from "bee-queue";
 import mongoose from "mongoose";
 import { warningAssistedAI } from "../Messages/index.js";
+import { llmQueue } from "../LLM/index.js";
 
 const PREFIX = "!";
-
-// type Job = {
-//   data: {
-//     query: string;
-//     channelId: string;
-//     user: User;
-//   };
-// };
 
 export enum Commands {
   Ask = `${PREFIX}ask`,
@@ -21,15 +13,6 @@ export enum Commands {
   Docs = `${PREFIX}docs`,
   Help = `${PREFIX}help`,
 }
-
-// const sharedConfig = {
-//   isWorker: true,
-//   removeOnSuccess: true,
-//   redis: {
-//     host: process.env.REDIS_HOSTNAME,
-//   },
-// };
-// const llmQueue = new Queue("LLM_QUERY", sharedConfig);
 
 // Const
 export const whitelistChannelIds = (() => {
