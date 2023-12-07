@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, ThreadAutoArchiveDuration } from "discord.js";
 import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
 import mongoose from "mongoose";
@@ -102,6 +102,8 @@ const CommandSearchTrigger: CommandTrigger = {
   cb: async (msg) => {
     const query = msg.content.split(`${PREFIX}search`)[1];
 
+    console.log("[debug] query -> ", query);
+
     if (!query) return;
 
     const { hits } = await algoliaIndex.search<AlgoliaHit>(query);
@@ -123,7 +125,7 @@ const CommandSearchTrigger: CommandTrigger = {
       msg,
       name: `Search for "${query}"`,
       message,
-      duration: 120, // 120 is two hours
+      duration: ThreadAutoArchiveDuration.OneHour, // 120 is two hours
     });
   },
 };
@@ -147,7 +149,7 @@ const CommandAskTrigger: CommandTrigger = {
         msg,
         name: query,
         message,
-        duration: 60, // 60 is an hour
+        duration: ThreadAutoArchiveDuration.OneWeek, // 60 is an hour
       });
 
       return;

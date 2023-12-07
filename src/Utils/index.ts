@@ -1,10 +1,9 @@
 import {
-  Client,
-  IntentsBitField,
   Message,
   User,
   GuildTextBasedChannel,
   TextChannel,
+  ThreadAutoArchiveDuration,
 } from "discord.js";
 
 export enum Docs {
@@ -99,11 +98,11 @@ export const sendCreateThreadMsg = async ({
   msg: Message;
   name: string;
   message: string;
-  duration?: number;
+  duration?: ThreadAutoArchiveDuration;
 }) => {
   const thread = await msg.startThread({
     name,
-    autoArchiveDuration: duration, // A day is 1440, see https://discord-api-types.dev/api/discord-api-types-v10/enum/ThreadAutoArchiveDuration
+    autoArchiveDuration: duration,
   });
 
   await thread.send(message);

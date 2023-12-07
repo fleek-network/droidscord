@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import { Client, IntentsBitField, User } from "discord.js";
 import { onMessageCreate } from "./ListenerTriggers/index.js";
-import { onCommandMsg } from "./Commands/index.js";
+import { onCommandMsg, whitelistChannelIds } from "./Commands/index.js";
 import { sendCreateThreadMsg } from "./Utils/index.js";
 import { Commands } from "./Commands/index.js";
 
