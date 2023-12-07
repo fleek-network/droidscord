@@ -3,6 +3,7 @@ import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
 import Queue from "bee-queue";
 import mongoose from "mongoose";
+import { warningAssistedAI } from "../Messages/index.js";
 
 const PREFIX = "!";
 
@@ -31,7 +32,7 @@ const sharedConfig = {
 const llmQueue = new Queue("LLM_QUERY", sharedConfig);
 
 // Const
-const whitelistChannelIds = (() => {
+export const whitelistChannelIds = (() => {
   if (!process.env.WHITELIST_CHANNEL_IDS) {
     throw new Error("Oops! The WHITELIST_CHANNEL_IDS env var is not set");
   }
@@ -179,7 +180,7 @@ const CommandAskTrigger: CommandTrigger = {
 
     const job = await llmQueue
       .createJob({
-        channelId,
+        channelId: msg.channelId,
         query,
         user,
       })
