@@ -255,48 +255,48 @@ client.on("messageCreate", async (msg) => {
   //     });
   // }
 
-  if (msg.content.startsWith(Commands.Help)) {
-    // TODO: use text tmplt instead
-    // Warning: the text literal lack of indentation has a purpose, do not change
-    const message = `👀 Hey ${msg.author.toString()}!
+  //   if (msg.content.startsWith(Commands.Help)) {
+  //     // TODO: use text tmplt instead
+  //     // Warning: the text literal lack of indentation has a purpose, do not change
+  //     const message = `👀 Hey ${msg.author.toString()}!
 
-\r\n**How to Get Help**
-- Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
-- Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
+  // \r\n**How to Get Help**
+  // - Before asking: Try to find the solution yourself. (CTRL + F in this server can answer a lot of questions)
+  // - Skip "I need help", "Help please", "Can I ask a thing", "I have an error" - Yes you can! Getting help is what this server is for!
 
-**Help Us to Help You**
-- Imagine you are the one trying to help. Ask the question in a way that you would want to read!
-- Try to find the answer in the documentation site, e.g. use the search option
-- Read the responses you are given.
-- Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
+  // **Help Us to Help You**
+  // - Imagine you are the one trying to help. Ask the question in a way that you would want to read!
+  // - Try to find the answer in the documentation site, e.g. use the search option
+  // - Read the responses you are given.
+  // - Research key words you do not understand before asking what they mean. (come back and ask, if you cannot find them)
 
-**No Answer?**
-- Do not mention uninvolved people to get a response.
-- Try to give more context / improve your description.
-- Try to find a solution yourself while waiting
-- Try to rephrase your question.
+  // **No Answer?**
+  // - Do not mention uninvolved people to get a response.
+  // - Try to give more context / improve your description.
+  // - Try to find a solution yourself while waiting
+  // - Try to rephrase your question.
 
-**Chat commands**
-- !search <query> e.g. !search how to install
-- !ask <query> e.g. !ask how to do a healthcheck
+  // **Chat commands**
+  // - !search <query> e.g. !search how to install
+  // - !ask <query> e.g. !ask how to do a healthcheck
 
-👆 The commands only work in the Fleek Network channels
+  // 👆 The commands only work in the Fleek Network channels
 
-**To learn more visit:**
-<https://docs.fleek.network>
+  // **To learn more visit:**
+  // <https://docs.fleek.network>
 
-**For Node Operator options tools run:**
-\`\`\`
-curl https://get.fleek.network | bash
-\`\`\``;
+  // **For Node Operator options tools run:**
+  // \`\`\`
+  // curl https://get.fleek.network | bash
+  // \`\`\``;
 
-    await sendCreateThreadMsg({
-      msg,
-      name: "Looking for help?",
-      message,
-      duration: 60, // 60 is an hour
-    });
-  }
+  //     await sendCreateThreadMsg({
+  //       msg,
+  //       name: "Looking for help?",
+  //       message,
+  //       duration: 60, // 60 is an hour
+  //     });
+  //   }
 });
 
 llmQueue.process(async (job: Job) => {
