@@ -62,3 +62,15 @@ export const channelsRoles = `Channels and Roles`;
 export const lookingForRewards = `👀 Hey $author, seems that you are talking about incentives or rewards? We're working hard to make sure that the rewards mechanism is top-notch before we roll it out. Our team takes great care to deploy and test under the testnet, but it's important to note that the testnet is not incentivized. Therefore, rewards and incentives will only be available on the mainnet after passing rigorous tests. Rest assured, we're doing everything we can to make sure that you'll be rewarded for your efforts. To learn more visit the documentation site https://docs.fleek.network, thanks for your patience and understanding!`;
 
 export const incentivesRewards = `Incentives and Rewards`;
+
+export const isNodeWorking = `👀 Hey $author, to verify if your node is running correctly do a health checkup!
+
+To do a health check run the command in the server:
+
+\`\`\`
+curl -sS https://get.fleek.network/healthcheck | bash
+\`\`\`
+
+To learn more visit https://docs.fleek.network/docs/node/health-check`;
+
+export const healthCheckups = `Helath checkups`;

@@ -9,6 +9,8 @@ import {
   lookingForRoles,
   lookingForRewards,
   incentivesRewards,
+  isNodeWorking,
+  healthCheckups,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -156,21 +158,19 @@ const NodeWorkingCorrectlyQueries: OnMessageCreate = {
       msg.content.match(/.*(normal|standard|correct).*logs/gm)
     ),
   cb: async (msg) => {
-    // TODO: use text tmplt instead
-    const message = `👀 Hey ${msg.author.toString()}, to verify if your node is running correctly do a health checkup!
-
-To do a health check run the command in the server:
-
-\`\`\`
-curl -sS https://get.fleek.network/healthcheck | bash
-\`\`\`
-
-To learn more visit https://docs.fleek.network/docs/node/health-check
-      `;
+    const message = textTemplt({
+      tmplt: isNodeWorking,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
-      name: "Health checkups",
+      name: healthCheckups,
       message,
     });
   },
