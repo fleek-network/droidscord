@@ -10,6 +10,7 @@ import {
   searchFor,
   queryReceivedPleaseWait,
   lookingForHelp,
+  onAskSucceededResponseMsg,
 } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
@@ -197,7 +198,23 @@ const CommandAskTrigger: CommandTrigger = {
 
     job
       .on("succeeded", async (response) => {
-        const message = `👋 Hey ${user.toString()} ${response}\n\n${warningAssistedAI}`;
+        const message = textTemplt({
+          tmplt: onAskSucceededResponseMsg,
+          placeholders: [
+            {
+              key: "$user",
+              val: user.toString(),
+            },
+            {
+              key: "$response",
+              val: response,
+            },
+            {
+              key: "$warningAssistedAI",
+              val: warningAssistedAI,
+            },
+          ],
+        });
 
         await thread.send(message);
 

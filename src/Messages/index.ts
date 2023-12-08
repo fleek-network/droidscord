@@ -46,3 +46,5 @@ export const searchFor = `Search for $query`;
 export const queryReceivedPleaseWait = `👀 Hey $user received the query "$query", please be patient while I check...`;
 
 export const lookingForHelp = `Looking for help?`;
+
+export const onAskSucceededResponseMsg = `👋 Hey $user $response\n\n$warningAssistedAI`;
