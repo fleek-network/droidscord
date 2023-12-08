@@ -42,3 +42,5 @@ export const visitDocsSite = `👋 Hey $user, visit the documentation site at $d
 export const foundResults = `👋 Hey! Found the following results:\n\n $answer`;
 
 export const searchFor = `Search for $query`;
+
+export const queryReceivedPleaseWait = `👀 Hey $user received the query "$query", please be patient while I check...`;

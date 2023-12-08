@@ -8,6 +8,7 @@ import {
   visitDocsSite,
   foundResults,
   searchFor,
+  queryReceivedPleaseWait,
 } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
@@ -165,7 +166,19 @@ const CommandAskTrigger: CommandTrigger = {
       return;
     }
 
-    const message = `👀 Hey ${user.toString()} received the query "${query}", please be patient while I check..`;
+    const message = textTemplt({
+      tmplt: queryReceivedPleaseWait,
+      placeholders: [
+        {
+          key: '$user',
+          val: user.toString(),
+        },
+        {
+          key: '$query',
+          val: query,
+        },
+      ]
+    });
 
     const thread = await sendCreateThreadMsg({
       msg,
