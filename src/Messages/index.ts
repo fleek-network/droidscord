@@ -58,3 +58,7 @@ export const nodeSetup = `Node setup`;
 export const lookingForRoles = `👀 Hey $author, if you are looking for roles, go to <id:customize> to pick roles. Roles open access to channels you might be interested in, so make sure to pick the correct roles.`;
 
 export const channelsRoles = `Channels and Roles`;
+
+export const lookingForRewards = `👀 Hey $author, seems that you are talking about incentives or rewards? We're working hard to make sure that the rewards mechanism is top-notch before we roll it out. Our team takes great care to deploy and test under the testnet, but it's important to note that the testnet is not incentivized. Therefore, rewards and incentives will only be available on the mainnet after passing rigorous tests. Rest assured, we're doing everything we can to make sure that you'll be rewarded for your efforts. To learn more visit the documentation site https://docs.fleek.network, thanks for your patience and understanding!`;
+
+export const incentivesRewards = `Incentives and Rewards`;
