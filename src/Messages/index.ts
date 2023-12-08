@@ -40,3 +40,5 @@ curl https://get.fleek.network | bash
 export const visitDocsSite = `👋 Hey $user, visit the documentation site at $docsSite`;
 
 export const foundResults = `👋 Hey! Found the following results:\n\n $answer`;
+
+export const searchFor = `Search for $query`;

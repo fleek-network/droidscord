@@ -7,6 +7,7 @@ import {
   infoHowGetHelp,
   visitDocsSite,
   foundResults,
+  searchFor,
 } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
@@ -111,7 +112,6 @@ const CommandSearchTrigger: CommandTrigger = {
     if (!urls.length) return;
 
     const answer = urls.join("\n");
-    // const message = `👋 Hey! Found the following results:\n\n ${answer}`;
     const message = textTemplt({
       tmplt: foundResults,
       placeholders: [
@@ -122,9 +122,18 @@ const CommandSearchTrigger: CommandTrigger = {
       ],
     });
 
+    const name = textTemplt({
+      tmplt: searchFor,
+      placeholders: [
+        {
+          key: "$query",
+          val: query,
+        },
+      ],
+    });
     await sendCreateThreadMsg({
       msg,
-      name: `Search for "${query}"`,
+      name,
       message,
       duration: ThreadAutoArchiveDuration.OneHour,
     });
