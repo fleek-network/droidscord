@@ -2,7 +2,12 @@ import { Message, ThreadAutoArchiveDuration } from "discord.js";
 import { Docs, sendCreateThreadMsg } from "../Utils/index.js";
 import { AlgoliaHit, algoliaIndex } from "../Utils/algolia.js";
 import { textTemplt } from "../Utils/text.js";
-import { warningAssistedAI, infoHowGetHelp } from "../Messages/index.js";
+import {
+  warningAssistedAI,
+  infoHowGetHelp,
+  visitDocsSite,
+  foundResults,
+} from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
 const PREFIX = "!";
@@ -38,7 +43,21 @@ const CommandDocsTrigger: CommandTrigger = {
   expr: (msg) => msg.content.startsWith(Commands.Docs),
   cb: (msg) => {
     if (msg.content === Commands.Docs) {
-      msg.reply(`Visit the documentation site at ${Docs.Site}`);
+      const message = textTemplt({
+        tmplt: visitDocsSite,
+        placeholders: [
+          {
+            key: "$user",
+            val: msg.author.toString(),
+          },
+          {
+            key: "$docSite",
+            val: Docs.Site,
+          },
+        ],
+      });
+
+      msg.reply(message);
 
       return;
     }
@@ -50,11 +69,20 @@ const CommandDocsTrigger: CommandTrigger = {
       try {
         const user = [...match][0][1];
 
-        // TODO: Use text template
-        // TODO: Use thread response helper fn
-        msg.reply(
-          `👋 Hey ${user}, visit the documentation site at ${Docs.Site}`,
-        );
+        const message = textTemplt({
+          tmplt: visitDocsSite,
+          placeholders: [
+            {
+              key: "$user",
+              val: user,
+            },
+            {
+              key: "$docsSite",
+              val: Docs.Site,
+            },
+          ],
+        });
+        msg.reply(message);
       } catch (err) {
         console.error(`Oops! Failed to send docs site url to user`);
       }
@@ -83,7 +111,16 @@ const CommandSearchTrigger: CommandTrigger = {
     if (!urls.length) return;
 
     const answer = urls.join("\n");
-    const message = `👋 Hey! Found the following results:\n\n ${answer}`;
+    // const message = `👋 Hey! Found the following results:\n\n ${answer}`;
+    const message = textTemplt({
+      tmplt: foundResults,
+      placeholders: [
+        {
+          key: "$answer",
+          val: answer,
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
