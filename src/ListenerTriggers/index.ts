@@ -15,6 +15,8 @@ import {
   analyzingLogs,
   canSomeoneHelp,
   lookingForHelp,
+  whenNextTestnet,
+  aboutNextTestnetPhase,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -236,16 +238,19 @@ const AskNextTesnetPhaseQueries: OnMessageCreate = {
       msg.content.match(/.*[wW][hH]?en.*testnet/gm)
     ),
   cb: async (msg) => {
-    // TODO: use text tmplt instead
-    const message = `👀 Hey ${msg.author.toString()}, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
-      
-Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
-      
-Thanks for your patience and understanding!`;
+    const message = textTemplt({
+      tmplt: whenNextTestnet,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
-      name: "About next testnet phase",
+      name: aboutNextTestnetPhase,
       message,
     });
   },

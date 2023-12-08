@@ -90,3 +90,11 @@ export const analyzingLogs = `Analyzing logs`;
 export const canSomeoneHelp = `👀 Hey $author, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`;
 
 export const lookingForHelp = `Looking for help`;
+
+export const whenNextTestnet = `👀 Hey $author, for testnet announcements and requirements you have to keep an eye in the announcements in <#994686135789953106> and <#1148719641896693873>.
+      
+Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) or follow us on Twitter (<https://twitter.com/fleek_net>).
+      
+Thanks for your patience and understanding!`;
+
+export const aboutNextTestnetPhase = "About next testnet phase";
