@@ -36,3 +36,6 @@ export const infoHowGetHelp = `👀 Hey $author!
 \`\`\`
 curl https://get.fleek.network | bash
 \`\`\``;
+
+export const visitDocsSite = 
+`👋 Hey $user, visit the documentation site at $docsSite`;
