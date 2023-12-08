@@ -17,6 +17,7 @@ import {
   lookingForHelp,
   whenNextTestnet,
   aboutNextTestnetPhase,
+  forGreetingsUse,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -277,10 +278,19 @@ const GreentingQueries: OnMessageCreate = {
       msg,
     });
 
-    // TODO: use text tmplt instead
-    const message = `${msg.author.toString()} for greetings use the channel <#${
-      process.env.DISCORD_CHANNEL_ID_GM_GN
-    }>`;
+    const message = textTemplt({
+      tmplt: forGreetingsUse,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+        {
+          key: "$discordChannelIdGmGn",
+          val: process.env.DISCORD_CHANNEL_ID_GM_GN as string,
+        },
+      ],
+    });
 
     await sendMsgToChannel({
       channel: msg.channel as TextChannel,

@@ -98,3 +98,5 @@ Alternatively, you can keep visit our Blog site (<https://blog.fleek.network/>) 
 Thanks for your patience and understanding!`;
 
 export const aboutNextTestnetPhase = "About next testnet phase";
+
+export const forGreetingsUse = `$author for greetings use the channel <#$discordChannelIdGmGn>`;
