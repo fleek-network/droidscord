@@ -5,6 +5,8 @@ import {
   aboutWhitelisting,
   anyoneCanInstall,
   nodeSetup,
+  channelsRoles,
+  lookingForRoles,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -98,12 +100,19 @@ const RolesQueries: OnMessageCreate = {
       msg.content.match(/.*[wW]here.*my.*roles?/gm)
     ),
   cb: async (msg) => {
-    // TODO: use text tmplt instead
-    const message = `👀 Hey ${msg.author.toString()}, if you are looking for roles, go to <id:customize> to pick roles. Roles open access to channels you might be interested in, so make sure to pick the correct roles.`;
+    const message = textTemplt({
+      tmplt: lookingForRoles,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
-      name: "Channels & Roles",
+      name: channelsRoles,
       message,
     });
   },

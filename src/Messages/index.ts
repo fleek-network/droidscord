@@ -54,3 +54,7 @@ export const aboutWhitelisting = `About whitelisting`;
 export const anyoneCanInstall = `👀 Hey $author, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`;
 
 export const nodeSetup = `Node setup`;
+
+export const lookingForRoles = `👀 Hey $author, if you are looking for roles, go to <id:customize> to pick roles. Roles open access to channels you might be interested in, so make sure to pick the correct roles.`;
+
+export const channelsRoles = `Channels and Roles`;
