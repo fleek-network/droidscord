@@ -1,12 +1,18 @@
 import { Message, TextChannel } from "discord.js";
 import dayjs from "dayjs";
-import { whitelistNotRequired } from "../Messages/index.js";
+import {
+  whitelistNotRequired,
+  aboutWhitelisting,
+  anyoneCanInstall,
+  nodeSetup,
+} from "../Messages/index.js";
 import assert from "assert";
 import {
   deleteMsg,
   sendMsgToChannel,
   sendCreateThreadMsg,
 } from "../Utils/index.js";
+import { textTemplt } from "../Utils/text.js";
 
 assert(
   process.env.WHITELIST_MSG_TIMEOUT_MINUTES,
@@ -43,7 +49,7 @@ const whitelistQueries: OnMessageCreate = {
       // TODO: use text tmplt instead
       await sendCreateThreadMsg({
         msg,
-        name: "About whitelisting",
+        name: aboutWhitelisting,
         message: whitelistNotRequired,
       });
       lastWhiteListMsg = currentWhiteListMsg;
@@ -56,12 +62,19 @@ const installSetupQueries: OnMessageCreate = {
   expr: (msg) =>
     !!msg.content.match(/.*([hH]ow|[cC]an).*(install|setup).*node/gm),
   cb: async (msg) => {
-    // TODO: refactor/use a text message template instead
-    const message = `👀 Hey ${msg.author.toString()}, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`;
+    const message = textTemplt({
+      tmplt: anyoneCanInstall,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
-      name: "Node setup",
+      name: nodeSetup,
       message,
     });
   },

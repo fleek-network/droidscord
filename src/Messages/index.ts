@@ -48,3 +48,9 @@ export const queryReceivedPleaseWait = `👀 Hey $user received the query "$quer
 export const lookingForHelp = `Looking for help?`;
 
 export const onAskSucceededResponseMsg = `👋 Hey $user $response\n\n$warningAssistedAI`;
+
+export const aboutWhitelisting = `About whitelisting`;
+
+export const anyoneCanInstall = `👀 Hey $author, anyone can install and run node! Check the requirements and instructions in <https://docs.fleek.network/docs/node/install>`;
+
+export const nodeSetup = `Node setup`;
