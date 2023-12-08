@@ -44,3 +44,5 @@ export const foundResults = `👋 Hey! Found the following results:\n\n $answer`
 export const searchFor = `Search for $query`;
 
 export const queryReceivedPleaseWait = `👀 Hey $user received the query "$query", please be patient while I check...`;
+
+export const lookingForHelp = `Looking for help?`;

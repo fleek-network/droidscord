@@ -9,6 +9,7 @@ import {
   foundResults,
   searchFor,
   queryReceivedPleaseWait,
+  lookingForHelp,
 } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
 
@@ -170,14 +171,14 @@ const CommandAskTrigger: CommandTrigger = {
       tmplt: queryReceivedPleaseWait,
       placeholders: [
         {
-          key: '$user',
+          key: "$user",
           val: user.toString(),
         },
         {
-          key: '$query',
+          key: "$query",
           val: query,
         },
-      ]
+      ],
     });
 
     const thread = await sendCreateThreadMsg({
@@ -234,7 +235,7 @@ export const CommandHelpTrigger: CommandTrigger = {
 
     await sendCreateThreadMsg({
       msg,
-      name: "Looking for help?",
+      name: lookingForHelp,
       message,
       duration: ThreadAutoArchiveDuration.OneDay,
     });
