@@ -73,7 +73,7 @@ curl -sS https://get.fleek.network/healthcheck | bash
 
 To learn more visit https://docs.fleek.network/docs/node/health-check`;
 
-export const healthCheckups = `Helath checkups`;
+export const healthCheckups = `Health checkups`;
 
 export const analyzingLogsLearnMore = `👀 Hey $author, if you'd like to learn about logs visit the documentation https://docs.fleek.network/docs/node/analyzing-logs but in general, a health checkup is all you have to do! The logs are useful mostly you are troubleshooting issues, asserting something or developing.
 
@@ -84,3 +84,9 @@ curl -sS https://get.fleek.network/healthcheck | bash
 \`\`\`
 
 To learn more visit https://docs.fleek.network/docs/node/health-check`;
+
+export const analyzingLogs = `Analyzing logs`;
+
+export const canSomeoneHelp = `👀 Hey $author, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`;
+
+export const lookingForHelp = `Looking for help`;

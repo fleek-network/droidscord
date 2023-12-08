@@ -12,6 +12,9 @@ import {
   isNodeWorking,
   healthCheckups,
   analyzingLogsLearnMore,
+  analyzingLogs,
+  canSomeoneHelp,
+  lookingForHelp,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -193,7 +196,7 @@ const WatchLogsQueries: OnMessageCreate = {
 
     await sendCreateThreadMsg({
       msg,
-      name: "Analyzing logs",
+      name: analyzingLogs,
       message,
     });
   },
@@ -205,12 +208,19 @@ const AskForHelpQueries: OnMessageCreate = {
       /.*[cC]an.*(someone|somebody|anyone|you|team).*help.*(me|please)?/gm,
     ),
   cb: async (msg) => {
-    // TODO: use text tmplt instead
-    const message = `👀 Hey ${msg.author.toString()}, have you tried typing **!help** command in the channel to find the different ways to get help? If you have done that already, be patient, thank you!`;
+    const message = textTemplt({
+      tmplt: canSomeoneHelp,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
 
     await sendCreateThreadMsg({
       msg,
-      name: "Looking for help",
+      name: lookingForHelp,
       message,
     });
   },
