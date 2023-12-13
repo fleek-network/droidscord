@@ -5,6 +5,7 @@ from pathlib import Path
 from llama_index import download_loader, ServiceContext
 from llama_index.prompts import PromptTemplate
 from llama_index.llms import OpenAI
+from datetime import datetime
 import os
 
 app = FastAPI()
@@ -16,18 +17,22 @@ service_context = ServiceContext.from_defaults(llm=llm)
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
 
-template = (
-    "We have provided knowledge below. \n"
-    "---------------------\n"
-    "{context_str}"
-    "\n---------------------\n"
-    "Given the provided knowledge and not prior knowledge,"
-    "answer the query, including the commands and the documentation URL,\n"
-    "the answer should only contain accurate information from provided knowledge only\n"
-    "If no answer, ask to visit the main blog and documentation website\n"
-    "The query is: {query_str}\n"
-)
-qa_template = PromptTemplate(template)
+myDate = datetime.today().strftime('%Y-%m-%d')
+
+def getTemplateWithDate(date):
+  template = (
+      "Today's date is" + date + " \n"
+      "We have provided knowledge below. \n"
+      "---------------------\n"
+      "{context_str}"
+      "\n---------------------\n"
+      "Given the provided knowledge and not prior knowledge,"
+      "answer the query, including the commands and the documentation URL,\n"
+      "the answer should only contain accurate information from provided knowledge only\n"
+      "If no answer, ask to visit the main blog and documentation website\n"
+      "The query is: {query_str}\n"
+  )
+  return template
 
 @app.get("/ping")
 def read_root():
@@ -41,6 +46,10 @@ def query(question: str):
   documents = loader.load_data(file=Path("./knowledge/faq.md"))
   index = SummaryIndex.from_documents(documents, service_context=service_context)
 
+  today = f"{datetime.today().strftime('%d %B, %Y')}"
+  template = getTemplateWithDate(today)
+  qa_template = PromptTemplate(template)
+ 
   query_engine = index.as_query_engine()
   query_engine.update_prompts(
     {"response_synthesizer:text_qa_template": qa_template}
