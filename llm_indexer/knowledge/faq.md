@@ -199,6 +199,14 @@ The Fleek Network Roadmap is available in https://docs.fleek.network/docs/roadma
 
 # When is the next testnet phase?
 
-The next testnet phase is coming out soon, as described in our Fleek Network Road to Mainnet blog post.
+The testnet phase 0 for the initial node rollout occured in September 2023 publicly. In October 2023, the phase 1 was deployed to test performance and improvements from phase 0, which was open to everybody interested in running a node and regardless of having participated in any previous phase.
 
-For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones blog post https://blog.fleek.network/post/fleek-network-updated-roadmap-milestones
+In December 2023, the phase 2 test was launched internally, where all the nodes were run by the Fleek Foundation and core team. 
+
+From January 2024, the phase 3 starts with the core team onboarding external developers to utilize the network for testing use-cases such as decentralized serverless edge functions. Also, third-party node operators will be onboarded gradually.
+
+The phase 4 arrives in the second quarter of 2024, bringing supporting infrastructure and more services.
+
+If all goes according to plan, the goal is to launch mainnet sometime during the summer of 2024, however, the exact timing will be determined as we approach and work through the final testnet phases and audits.
+
+For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones blog post https://docs.fleek.network/docs/roadmap/
