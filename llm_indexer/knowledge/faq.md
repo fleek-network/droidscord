@@ -209,4 +209,4 @@ The phase 4 arrives in the second quarter of 2024, bringing supporting infrastru
 
 If all goes according to plan, the goal is to launch mainnet sometime during the summer of 2024, however, the exact timing will be determined as we approach and work through the final testnet phases and audits.
 
-For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones blog post https://docs.fleek.network/docs/roadmap/
+For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones https://docs.fleek.network/docs/roadmap/
