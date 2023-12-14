@@ -13,6 +13,7 @@ import {
   onAskSucceededResponseMsg,
 } from "../Messages/index.js";
 import { llmQueue, MongoQuery } from "../LLM/index.js";
+import { isRTLText, convertRtfToPlain } from "../Utils/text.js";
 
 const PREFIX = "!";
 
@@ -148,7 +149,18 @@ const CommandAskTrigger: CommandTrigger = {
   cb: async (msg) => {
     const user = msg.author;
     let query = msg.content.split(Commands.Ask)[1];
-    query = query.replace(/[\W_]+/g, " ").trim();
+
+    const name = (() => {
+      if (isRTLText(query)) {
+        console.log("Warning! RTL text detected");
+
+        // TODO: translate text to english, or
+        // reply in detected language
+      }
+
+      return query;
+    })();
+
     const cacheQuery = await MongoQuery.findOne({
       query,
     });
@@ -184,9 +196,15 @@ const CommandAskTrigger: CommandTrigger = {
 
     const thread = await sendCreateThreadMsg({
       msg,
-      name: query,
+      name,
       message,
     });
+
+    if (!thread) {
+      console.log("Oops! Missing thread");
+
+      return;
+    }
 
     const job = await llmQueue
       .createJob({

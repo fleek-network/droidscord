@@ -99,12 +99,17 @@ export const sendCreateThreadMsg = async ({
   message: string;
   duration?: ThreadAutoArchiveDuration;
 }) => {
-  const thread = await msg.startThread({
-    name,
-    autoArchiveDuration: duration,
-  });
+  try {
+    const thread = await msg.startThread({
+      name,
+      autoArchiveDuration: duration,
+    });
 
-  await thread.send(message);
+    await thread.send(message);
 
-  return thread;
+    return thread;
+  } catch (err) {
+    console.log("Oops! Failed to create thread");
+    console.error(err);
+  }
 };
