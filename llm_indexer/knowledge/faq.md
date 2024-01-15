@@ -215,3 +215,9 @@ The phase 4 arrives in the second quarter of 2024, bringing supporting infrastru
 If all goes according to plan, the goal is to launch mainnet sometime during the summer of 2024, however, the exact timing will be determined as we approach and work through the final testnet phases and audits.
 
 For a complete description of our road to mainnet, read the Fleek Network updated roadmap milestones https://docs.fleek.network/docs/roadmap/
+
+# How to shutdown or turn off the node effectively?
+
+To shutdown the node successfully, start by making the opt-out of network participation. You'll get a text message confirming that the node will not be participating in the network's next epoch. Once the current epoch ends, you can safely shutdown the node.
+
+If you need more information, please visit the network participation opt section https://docs.fleek.network/docs/node/lightning-cli/#opt
