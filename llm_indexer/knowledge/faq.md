@@ -221,3 +221,6 @@ For a complete description of our road to mainnet, read the Fleek Network update
 To shutdown the node successfully, start by making the opt-out of network participation. You'll get a text message confirming that the node will not be participating in the network's next epoch. Once the current epoch ends, you can safely shutdown the node.
 
 If you need more information, please visit the network participation opt section https://docs.fleek.network/docs/node/lightning-cli/#opt
+
+# Where to learn to use the Lightning command line interface (CLI)?
+The Lightning CLI documentation is available in https://docs.fleek.network/docs/node/lightning-cli
