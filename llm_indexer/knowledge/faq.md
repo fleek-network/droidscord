@@ -69,6 +69,7 @@ You can install a Fleek Network Node in Docker. The quickest way to run the Flee
 
 ```
 sudo docker run \
+    -e OPT="in" \
     -p 4200-4299:4200-4299 \
     -p 4300-4399:4300-4399 \
     --mount type=bind,source=$HOME/.lightning,target=/home/lgtn/.lightning \
