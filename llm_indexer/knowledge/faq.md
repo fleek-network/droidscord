@@ -166,13 +166,17 @@ For more instructions to learn to check if your node is installed, set up and ru
 
 When a Testnet Phase details are ready, the date, requirements are announced immediately in our Discord, Twitter and Blog.
 
-If a date, announcement is unavailable, you'll have to be patient and wait for the details.
+If a date, announcement is unavailable, you'll have to be patient and wait for the details to be announced.
 
 For the latest information about our Testnet Phase and any other announcements visit our blog at https://blog.fleek.network
 
 # What is the main documentation and blog site URL?
 
-The documentation website URL is https://docs.fleek.network, and the blog website URL is https://blog.fleek.network
+The documentation website URL is https://docs.fleek.network
+
+# What is the blog URL?
+
+The blog website URL is https://blog.fleek.network
 
 # How to uninstall, remove or delete a Fleek Network Node?
 
