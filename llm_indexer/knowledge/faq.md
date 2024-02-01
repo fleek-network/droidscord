@@ -224,3 +224,15 @@ If you need more information, please visit the network participation opt section
 
 # Where to learn to use the Lightning command line interface (CLI)?
 The Lightning CLI documentation is available in https://docs.fleek.network/docs/node/lightning-cli
+
+# Is Intel Software Guard Extensions (SGX) mandatory?
+
+Yes, Intel SGX is mandatory! The Testnet Phase 4 introduces new security enhancements that require Intel Software Guard Extensions (SGX) technology. The Software Guard Extensions (SGX) is only available in GenuineIntel processors.
+
+If you need more information, please visit the requirements section at https://docs.fleek.network/docs/node/requirements
+
+# How to determine if my Node hardware, machine, computer or cloud provider supports Intel Software Guard Extensions (SGX)?
+
+You can check the CPU features if it has Software Guard Extensions (SGX) technology.
+
+For a list of hardware which supports Intel SGX - Software Guard Extensions, visit https://github.com/ayeks/SGX-hardware
