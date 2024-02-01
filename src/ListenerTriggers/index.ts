@@ -49,7 +49,8 @@ type OnMessageCreate = {
 const whitelistQueries: OnMessageCreate = {
   expr: (msg) =>
     !!msg.content.includes("whitelist") ||
-    !!msg.content.match(/.*(form|application|apply|join).*(test|testnet)/gm),
+    !!msg.content.match(/.*(form|application|apply|join).*(test|testnet)/gm) ||
+    !!msg.content.match(/.*[wW]h?en.*application.*approv(ed?|al)/gm),
   cb: async (msg) => {
     const currentWhiteListMsg = dayjs();
     const diffInMins = currentWhiteListMsg.diff(lastWhiteListMsg, "minute");
