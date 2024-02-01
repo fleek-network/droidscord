@@ -11,7 +11,7 @@ To install, set up and run a Fleek Network Node, it is recommended to have the f
 
 The Fleek Network Node binary is only supported on CPUs that adhere to the x86_64 architecture (64-bit).
 
-We're mainly supporting GenuineIntel and there have been reports of failure to build the binary on AMD. The ARM64 is not supported, but there has been some community contributions in that regard, check the documentation site.
+We're only supporting CPU's that feature the Genuine Intel Software Guard Extensions (SGX) technology.
 
 For more details information about CPU, Memory and Disk Space requirements for Fleek Network Node, you can refer to the documentation at https://docs.fleek.network/docs/node/requirements
 
