@@ -236,3 +236,7 @@ If you need more information, please visit the requirements section at https://d
 You can check the CPU features if it has Software Guard Extensions (SGX) technology.
 
 For a list of hardware which supports Intel SGX - Software Guard Extensions, visit https://github.com/ayeks/SGX-hardware
+
+# Are there any VPS cloud providers that have Intel Software Guard Extensions (SGX)? Where can I find Cloud offerings that support Intel SGX?
+
+Yes, there are Cloud providers that provide support for Intel Software Guard Extensions (SGX). Although the Fleek Foundation does not endorse or recommend any particular Cloud provider, a comprehensive list is available in Intel SGX product offerings at https://www.intel.com/content/www/us/en/architecture-and-technology/sgx-product-offerings.html
