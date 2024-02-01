@@ -210,7 +210,7 @@ In December 2023, the phase 2 test was launched internally, where all the nodes 
 
 From January 2024, the phase 3 starts with the core team onboarding external developers to utilize the network for testing use-cases such as decentralized serverless edge functions. Also, third-party node operators will be onboarded gradually.
 
-The phase 4 arrives in the second quarter of 2024, bringing supporting infrastructure and more services.
+The phase 4 arrives in the second quarter of 2024, bringing supporting infrastructure and security enhancements, which require Intel Software Guard Extensions (SGX) technology in the Node specifications.
 
 If all goes according to plan, the goal is to launch mainnet sometime during the summer of 2024, however, the exact timing will be determined as we approach and work through the final testnet phases and audits.
 
