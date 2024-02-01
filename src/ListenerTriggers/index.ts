@@ -134,7 +134,8 @@ const RewardIncentivesQueries: OnMessageCreate = {
     !!(
       msg.content.match(/.*[wW]h?en.*(reward|incentive|token)s?/gm) ||
       msg.content.match(/.*[hH]ow.*get.*rewards?/gm) ||
-      msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm)
+      msg.content.match(/.*([aA]re|[iI]s).*testnet.*incentiv(es|ised)/gm) ||
+      msg.content.match(/.*([wW]h?en|[iI]s).*node.*incentiv(es?|ised)/gm)
     ),
   cb: async (msg) => {
     const message = textTemplt({
