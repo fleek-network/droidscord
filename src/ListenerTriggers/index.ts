@@ -19,6 +19,7 @@ import {
   aboutNextTestnetPhase,
   forGreetingsUse,
   aboutConfirmationEmail,
+  confirmationTopic,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -328,7 +329,7 @@ const confirmationEmail: OnMessageCreate = {
 
     await sendCreateThreadMsg({
       msg,
-      name: nodeSetup,
+      name: confirmationTopic,
       message,
     });
   },
