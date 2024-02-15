@@ -315,7 +315,9 @@ const confirmationEmail: OnMessageCreate = {
   !!msg.content.match(/.*wasn.*able.*fill.*form/gm) ||
   !!msg.content.match(/.*([fF]orm|[hH]ow|[wW]hy|[wW]h?ere).*(haven|not?).*got.*access/gm) ||
   !!msg.content.match(/.*([wW]h?en.*form.*again)/gm) ||
-  !!msg.content.match(/.*[fF]illed.*form/gm),
+  !!msg.content.match(/.*[fF]illed.*form/gm) ||
+  !!msg.content.match(/.*[fF]orm.*participate.*phase.*4/gm) ||
+  !!msg.content.match(/.*([wW]h?en.*phase.*4)/gm),
   cb: async (msg) => {
     const message = textTemplt({
       tmplt: aboutConfirmationEmail,
