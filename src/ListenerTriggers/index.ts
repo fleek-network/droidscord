@@ -18,6 +18,7 @@ import {
   whenNextTestnet,
   aboutNextTestnetPhase,
   forGreetingsUse,
+  aboutConfirmationEmail,
 } from "../Messages/index.js";
 import assert from "assert";
 import {
@@ -301,6 +302,33 @@ const GreentingQueries: OnMessageCreate = {
   },
 };
 
+const confirmationEmail: OnMessageCreate = {
+  expr: (msg) =>
+    !!msg.content.match(/.*[cC]onfirmation.*mail/gm) ||
+  !!msg.content.match(/.*[tT]estnet.*form.*approv/gm) ||
+    !!msg.content.match(/.*[fF]orm.*closed/gm) ||
+  !!msg.content.match(/.*[pP]hase.*4.*form/gm) ||
+  !!msg.content.match(/.*[fF]orm.*[tT]estnet.*4/gm) ||
+  !!msg.content.match(/.*[gG]enesis.*operator.*form/gm),
+  cb: async (msg) => {
+    const message = textTemplt({
+      tmplt: aboutConfirmationEmail,
+      placeholders: [
+        {
+          key: "$author",
+          val: msg.author.toString(),
+        },
+      ],
+    });
+
+    await sendCreateThreadMsg({
+      msg,
+      name: nodeSetup,
+      message,
+    });
+  },
+};
+
 export const onMessageCreate: OnMessageCreate[] = [
   whitelistQueries,
   installSetupQueries,
@@ -311,4 +339,5 @@ export const onMessageCreate: OnMessageCreate[] = [
   AskForHelpQueries,
   AskNextTesnetPhaseQueries,
   GreentingQueries,
+  confirmationEmail,
 ];
