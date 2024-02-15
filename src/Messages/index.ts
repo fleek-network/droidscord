@@ -108,4 +108,6 @@ export const aboutNextTestnetPhase = "About next testnet phase";
 
 export const forGreetingsUse = `$author for greetings use the channel <#$discordChannelIdGmGn>`;
 
+export const confirmationTopic = "About confirmations";
+
 export const aboutConfirmationEmail = `👋 Hey $author, are you seeking feedback about the form you submitted? please be patient while awaiting confirmation. If you have not received a message, please understand that it may indicate that you were not selected at this time. For any further announcements, kindly check <#994686135789953106>, please 🙏`
