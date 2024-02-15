@@ -309,7 +309,12 @@ const confirmationEmail: OnMessageCreate = {
     !!msg.content.match(/.*[fF]orm.*closed/gm) ||
   !!msg.content.match(/.*[pP]hase.*4.*form/gm) ||
   !!msg.content.match(/.*[fF]orm.*[tT]estnet.*4/gm) ||
-  !!msg.content.match(/.*[gG]enesis.*operator.*form/gm),
+  !!msg.content.match(/.*[gG]enesis.*operator.*form/gm) ||
+  !!msg.content.match(/.*[fF]orm.*closed?/gm) ||
+  !!msg.content.match(/.*wasn.*able.*fill.*form/gm) ||
+  !!msg.content.match(/.*([fF]orm|[hH]ow|[wW]hy|[wW]h?ere).*(haven|not?).*got.*access/gm) ||
+  !!msg.content.match(/.*([wW]h?en.*form.*again)/gm) ||
+  !!msg.content.match(/.*[fF]illed.*form/gm),
   cb: async (msg) => {
     const message = textTemplt({
       tmplt: aboutConfirmationEmail,
